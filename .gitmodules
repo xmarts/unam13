@@ -4,3 +4,6 @@
 [submodule "Unam_presupuesto"]
 	path = Unam_presupuesto
 	url = git@github.com:xmarts/Unam_presupuesto.git
+[submodule "control_cheques_unam"]
+	path = control_cheques_unam
+	url = git@github.com:xmarts/control_cheques_unam.git
