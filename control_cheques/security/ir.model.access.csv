@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_checks_reorder_point,checks.reorder.point,model_checks_reorder_point,,1,1,1,1
+access_reason_for_cancellation,reason.for.cancellation,model_reason_for_cancellation,,1,1,1,1
+access_checks_checkbook,checks.checkbook,model_checks_checkbook,,1,1,1,1
+access_checks_checkbook_print_test,checks.checkbook.print.test,model_checks_checkbook_print_test,,1,1,1,1
+access_checks_bank_check,checks.bank.check,model_checks_bank_check,,1,1,1,1
+access_checks_bank_check_history,checks.bank.check.history,model_checks_bank_check_history,,1,1,1,1
+access_checks_request_check,checks.request.check,model_checks_request_check,,1,1,1,1
+access_checks_request_check_line,checks.request.check.line,model_checks_request_check_line,,1,1,1,1
+access_checks_bank_check_archive,checks.bank.check.archive,model_checks_bank_check_archive,,1,1,1,1

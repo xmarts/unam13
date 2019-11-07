@@ -1,0 +1,452 @@
+<odoo>
+  <data>
+    <!-- Formulario para Mninimo de cheques -->
+    <record model="ir.actions.act_window" id="listar_min_cheques">
+      <field name="name">Mínimo de cheques</field>
+      <field name="res_model">checks.reorder.point</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  
+    <record model="ir.ui.view" id="cheques_tree" >
+      <field name="name">cheques_cheques.tree</field>
+      <field name="model">checks.reorder.point</field>
+      <field name="arch" type="xml">
+        <tree string="Idea list">
+          <field name="name"/>
+          <field name="bank_account_id"/>
+          <field name="bank_id"/>
+          <field name="minimum_of_chek"/>
+          <field name="reorder_point"/>
+        </tree>
+      </field>
+    </record> 
+
+    <record model="ir.ui.view" id="view_cheques_form">
+      <field name="name">view.cheques.form</field>
+      <field name="model">checks.reorder.point</field>
+      <field name="arch" type="xml">
+        <form string="nombre form">
+          <header></header>
+          <sheet>
+            <group class="row">
+              <group class="col-md-5">
+                <field name="name"/>
+                <field name="bank_account_id"/>
+              </group>
+              <group class="col-md-6">
+                <field name="bank_id"/>
+                <field name="minimum_of_chek"/>
+                <field name="reorder_point"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Fin vista Mninimo de cheques -->
+
+    <!-- Inicio Formulario Chequeras-->
+   <record  id="view_form_alta_chequeras" model="ir.ui.view">
+      <field name="name">Alta de chequeras</field>
+      <field name="model">checks.checkbook</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+
+            <!--Botones para usuarios con acceso a aprobaciones --> 
+            <button name="approve"
+             string="Aprobar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','2')]}" />
+
+             <button name="send"
+             string="Enviar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','3')]}" />
+
+            <button name="confirm"
+             string="Confirmar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','5')]}"/>
+
+            <button name="to_refuse"
+             string="Rechazar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','5')]}"/>
+
+
+
+            <button name="request"
+             string="Solicitar"
+             groups="control_cheques.security_request_check"
+             type="object" class="oe_highlight" 
+             attrs="{'invisible':[('state', '!=','1')]}"/>
+
+
+            <button name="Generate_trade" 
+             string="Generar oficio de confirmación" 
+             type="object" 
+             class="oe_highlight" attrs="{'invisible':[('state', '!=', '4')]}"/>
+    <!--         
+            <button name="bankcheck_testprint_id"
+             string="Folios de muestra" 
+             type="object" class="oe_highlight"
+            />
+            <button name="request"
+             string="Solicitar"
+             type="object" class="oe_highlight" />
+            <button name="approve"
+             string="Aprobar"
+             type="object" class="oe_highlight" />
+            <button name="send"
+             string="Enviar"
+             type="object" class="oe_highlight" />
+            <button name="confirm"
+             string="Confirmar"
+             type="object" class="oe_highlight" />
+            <button name="to_refuse"
+             string="Rechazar"
+             type="object" class="oe_highlight" />
+             
+-->
+            <field name="state" widget="statusbar"/>
+          </header>     
+           <sheet>
+              <group class="row">
+                <group class="col-md-5" >                   
+                  <field name="name"/>                  
+                  <field name="trade_number"/>
+                  <field name="date" />
+                  <field name="bank_id" />
+                  <field name="journal_id" />
+                  <field name="qty_checks" />
+                  <field name="user_id" />
+                  <field name="comments" />
+                  <field name="checks_received" attrs="{'invisible':[('state','!=','4')]}" />
+                  <field name="checks_per_box" attrs="{'invisible':[('state','!=','4')]}" />
+                  <field name="reason_for_rejection" attrs="{'required':[('state','=','6')]}" />
+                </group>
+                <group class="col-md-5">
+                  <field name="checkbook_number" attrs="{'invisible': [('state','not in',['3','4','5'])],'required':[('state','in',['3','4','5'])]}"/>
+                  
+                  <field name="initial_check_number" attrs="{'required':[('state','=', '4')], 'invisible':[('state','!=','4')]}"/>
+                  <field name="final_check_number"  attrs="{'required':[('state','=', '4')], 'invisible':[('state','!=','4')]}"/>
+                  <field name="request_file" />
+                  <field name="confirmation_document" attrs="{'required':[('state','=', '4')], 'invisible':[('state','!=','4')]}"/>
+                  <field name="checks_test_print" />
+
+
+
+                  <field name="number_check" attrs="{'invisible':[('checks_test_print','=', False)], 'required':[('checks_test_print','=', True)]}"/>
+                </group>
+              </group>
+              <notebook>
+                <page string="Relacion de cheques">
+                  <field name="rel_chekes">
+                    <tree>
+                     <field name="bankcheck_number"/>
+                     <field name="state"/>
+                    </tree>
+                  </field> 
+                </page>
+              </notebook>
+           </sheet> 
+        </form>
+      </field> 
+    </record> 
+
+    <record id="view_tree_alta_chequeras" model="ir.ui.view">
+      <field name="name">Alta de chequeras tree</field>
+      <field name="model">checks.checkbook</field>
+      <field name="arch" type="xml">
+          <tree >              
+            <field name="name"/>                  
+            <field name="trade_number"/>
+            <field name="checkbook_number" />
+            <field name="date" />
+            <field name="bank_id" />
+            <field name="journal_id" />
+            <field name="qty_checks" />
+            <field name="user_id" />
+            <field name="request_file" />
+            <field name="comments" />
+            <field name="initial_check_number" />
+            <field name="final_check_number" />
+            <field name="confirmation_document" />
+            <field name="checks_test_print" />
+            <field name="checks_received" />
+            <field name="checks_per_box" />
+            <field name="number_check" />
+            <field name="reason_for_rejection" />
+          </tree>
+      </field>
+    </record>  
+
+    <act_window
+      id="action_checkbook"
+      name="Alta de chequeras"
+      res_model="checks.checkbook" 
+      view_mode="tree,form"/>
+    <!--Fin formulario Chequeras-->
+
+    <!-- Vista  Historial de cheques (Solo lectura)-->
+     <record id="view_tree_historial_cheques" model="ir.ui.view">
+      <field name="name">Historial cheques tree</field>
+      <field name="model">checks.bank.check</field>
+      <field name="arch" type="xml">
+          <tree >              
+        <field name="checkbook_id"/>
+        <field name="bankcheck_number"/> 
+          </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cheques_form">
+      <field name="name">view.bank.check.form</field>
+      <field name="model">checks.bank.check</field>
+      <field name="arch" type="xml">
+        <form string="nombre form">
+          <header></header>
+          <sheet>
+            <group class="row">
+              <group class="col-md-5"> 
+                <field name="name"/>
+                <field name="checkbook_id"/>
+                <field name="bankcheck_number"/>
+              </group>
+              <group class="col-md-5">
+                <field name="state"/>             
+              </group>
+            </group>
+            <notebook>
+              <page string="Historial de cheques">
+                <field name="history_c">
+                  <tree >
+                    <field name="check_bank_id"/>
+                    <field name="movmente_date"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+ 
+    <act_window
+      id="action_historycheck"
+      name="Historial cheques"
+      res_model="checks.bank.check" 
+      view_mode="tree,form" />
+      <!-- Fin Cheques Historial-->
+
+      <!-- Inicio  Cheques en Blanco-->
+    <record  id="view_form_request_check_line" model="ir.ui.view">
+      <field name="name">Cheques en blanco</field>
+      <field name="model">checks.request.check</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+             <button name="approve"
+             string="Aprobar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','2')]}" />
+
+
+
+            <button name="confirm"
+             string="Confirmar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','3')]}"/>
+
+            <button name="to_refuse"
+             string="Rechazar"
+             groups="control_cheques.security_request_checks_approve"
+             type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=','3')]}"/>
+
+
+
+            <button name="request"
+             string="Solicitar"
+             groups="control_cheques.security_request_check"
+             type="object" class="oe_highlight" 
+             attrs="{'invisible':[('state', '!=','1')]}"/>
+
+
+           <!-- <button name="Generate_trade" 
+             string="Generar oficio de confirmación" 
+             type="object" 
+             class="oe_highlight" attrs="{'invisible':[('state', '!=', '4')]}"/> -->
+
+            <field name="state" widget="statusbar"/>
+          </header>     
+           <sheet>
+              <group class="row">
+                <group class="col-md-5" >
+                  <field name="name"/>
+                  <field name="document_no"/>
+                  <field name="checks_qty"/>
+                  <field name="reason"/>
+                  <field name="date"/>
+                  <br/>
+                  <field name="checkbook_id" attrs="{'invisible':[('state','not in',['3','4','5'])]}"/>
+                </group>
+                <group class="col-md-6">
+                  <field name="user_id"/>
+                  <field name="is_test_print"/>
+                  <field name="checks_autorized" attrs="{'invisible':[('state','not in',['3','4','5'])]}"/>
+                  <br/>
+                  <br/>
+                  <field name="start_document" attrs="{'invisible':[('state','not in',['3','4','5'])]}"/>
+                  <field name="end_document" attrs="{'invisible':[('state','not in',['3','4','5'])]}"/>
+                </group>
+              </group>
+              <notebook>
+                <page string="Cheques asignados">
+                  <field name="assign_check">
+                    <tree>
+                      <field name="checkbook_id"/>
+                      <field name="state"/>
+                    </tree>
+                  </field> 
+                </page>
+              </notebook>
+           </sheet> 
+        </form>
+      </field> 
+    </record> 
+
+    <record id="view_tree_request_check_line" model="ir.ui.view">
+      <field name="name">Cheques en blanco tree</field>
+      <field name="model">checks.request.check</field>
+      <field name="arch" type="xml">
+          <tree >
+            <field name="document_no"/>
+                  <field name="date"/>
+                  <field name="checks_qty"/>
+                  <field name="user_id"/>
+                  <field name="reason"/>
+                  <field name="is_test_print"/>
+                  <field name="checks_autorized"/>
+                  <field name="checkbook_id"/>
+                  <field name="start_document"/>
+                  <field name="end_document"/>
+          </tree>
+      </field>
+    </record> 
+    <act_window
+      id="action_requestcheckline"
+      name="Solicitud de cheques en blanco"
+      res_model="checks.request.check" 
+      view_mode="tree,form"/>
+      <!-- Fin Cheques en Blanco-->
+
+      <!-- Cheques Cancelados-->
+    <record id="view_cheques_cancel" model="ir.ui.view">
+      <field name="name">Cheques Cancelados tree</field>
+      <field name="model">checks.bank.check</field>
+      <field name="arch" type="xml">
+          <tree >
+            <field name="checkbook_id"/>
+            <field name="bankcheck_number"/>
+            <field name="state"/>
+          </tree>
+      </field>
+    </record>
+
+    <act_window
+      id="check_cancel"
+      name="Cheques cancelados"
+      res_model="checks.bank.check" 
+      view_mode="tree,form" domain="[('state','=','10')]"/> 
+      <!-- Fin Cheques Cancelados-->
+
+ 
+ <!-- Cheques para Destruccion -->
+ <!--
+  <record id="view_tree_historial_cheques" model="ir.ui.view">
+      <field name="name">Historial cheques tree</field>
+      <field name="model">checks.bank.check</field>
+      <field name="arch" type="xml">
+          <tree >              
+        <field name="name"/>
+        
+        <field name="bankcheck_number"/> 
+          </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cheques_form">
+      <field name="name">view.bank.check.form</field>
+      <field name="model">checks.bank.check</field>
+      <field name="arch" type="xml">
+        <form string="nombre form">
+          <header></header>
+          <sheet>
+            <group class="row">
+              <group class="col-md-5">
+                <field name="name"/>
+                <field name="bankcheck_number"/>
+              </group>
+              <group class="col-md-5">
+                <field name="state"/>             
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+ 
+    <act_window
+      id="action_historycheck"
+      name="Historial cheques"
+      res_model="checks.bank.check" 
+      view_mode="tree,form"/>
+-->
+ <!-- Listado de  Submenus -->
+
+<menuitem 
+    id="menu_root_cheques"  
+    name="Control de Cheques"/>
+    <menuitem 
+    id="sub_menu_root_cheques" 
+    name="Configuración" 
+    parent="menu_root_cheques"/>
+    <menuitem 
+    id="sub_menu_chequeras" 
+    name="Chequeras" 
+    parent="menu_root_cheques"/>
+    <menuitem 
+    id="sub_menu_check_line" 
+    name="Solicitud de cheques en blanco"
+    parent="menu_root_cheques"/>
+    <menuitem id="menu_minimo_cheques" 
+    name="​ Mínimo de cheques"
+    parent="control_cheques.sub_menu_root_cheques"
+    action="listar_min_cheques" 
+    sequence="0"/>
+    <menuitem id="menu_solicitud_de_chequera" 
+    name="Chequeras"
+    parent="sub_menu_chequeras"
+    action="action_checkbook" 
+    sequence="0"/>
+    <menuitem id="menu_historial_cheques" 
+    name="Historial de Chequeras"
+    parent="sub_menu_chequeras"
+    action="action_historycheck" 
+    sequence="0"/>    
+      <menuitem id="menu_cheques_cancelados" 
+    name="Cheques cancelados"
+    parent="sub_menu_chequeras"
+    action="check_cancel" 
+    sequence="0"/>  
+    <menuitem id="menu_checklinesrequest" 
+    name="Solicitus de cheques en blanco"
+    parent="sub_menu_check_line"
+    action="action_requestcheckline" 
+    sequence="3"/>
+
+  </data>
+</odoo>
