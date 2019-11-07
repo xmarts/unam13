@@ -223,8 +223,8 @@
               <page string="Historial de cheques">
                 <field name="history_c">
                   <tree >
-                    <field name="check_bank_id"/>
-                    <field name="movmente_date"/>
+ <!--                    <field name="check_bank_id"/>
+                    <field name="movmente_date"/> -->
                     <field name="state"/>
                   </tree>
                 </field>
