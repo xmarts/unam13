@@ -1,0 +1,193 @@
+<odoo>
+	<data>
+		<!--vista y formulario para  budget.structure Orden del código programático. -->
+
+		<record  id="view_form_Orden_codigo_pro" model="ir.ui.view">
+			<field name="name">Orden del código programático</field>
+			<field name="model">budget.structure</field>
+			<field name="arch" type="xml">
+				<form >
+					<header>
+					</header>     
+					<sheet>
+						<group>
+							<group>
+								<field name="sequence"/>
+								<field name="name"/>
+								<field name="is_year" attrs="{'readonly':['|','|',('is_check_digit','=',True),('is_authorized_budget','=',True),('is_asigned_budget','=',True)]}"/>
+								<field name="is_check_digit" attrs="{'readonly':['|','|',('is_year','=',True),('is_authorized_budget','=',True),('is_asigned_budget','=',True)]}" />
+								<field name="is_authorized_budget" attrs="{'readonly':['|','|',('is_check_digit','=',True),('is_year','=',True),('is_asigned_budget','=',True)]}"/>
+								<field name="is_asigned_budget" attrs="{'readonly':['|','|',('is_check_digit','=',True),('is_year','=',True),('is_authorized_budget','=',True)]}"/>
+							</group>
+							<group> 
+								<field name="catalog_id" attrs="{'invisible':['|','|','|',('is_year','=',True),('is_check_digit','=',True),('is_authorized_budget','=',True),('is_asigned_budget','=',True)]}" options="{'no_create': True, 'no_create_edit':True}"/>
+								<field name="to_search_field" attrs="{'invisible':['|','|','|',('is_year','=',True),('is_check_digit','=',True),('is_authorized_budget','=',True),('is_asigned_budget','=',True)]}" domain="[('model_id', '=', catalog_id)]" options="{'no_create': True, 'no_create_edit':True}"/>
+								<field name="position_from"/>
+								<field name="position_to"/>
+								<field name="code_part_pro"/>
+							</group>
+						</group>
+					</sheet> 
+				</form>
+			</field> 
+		</record> 
+
+		<record id="view_tree_Orden_codigo_pro" model="ir.ui.view">
+			<field name="name">Orden del código programático tree</field>
+			<field name="model">budget.structure</field>
+			<field name="arch" type="xml">
+				<tree >
+					<field name="sequence"/>
+					<field name="name"/>
+					<field name="catalog_id"/>
+					<field name="position_from"/>
+					<field name="position_to"/> 
+					<field name="code_part_pro"/>               
+				</tree>
+			</field>
+		</record> 
+
+		<act_window
+			id="action_Orden_codigo_pro"
+			name="Orden del código programático"
+			res_model="budget.structure"
+			view_mode="tree,form"
+			/>
+
+
+		<record  id="view_form_Orden_codigo_pro_rec" model="ir.ui.view">
+			<field name="name">Orden del código programático</field>
+			<field name="model">budget.structure.recalendarization</field>
+			<field name="arch" type="xml">
+				<form >
+					<header>
+					</header>     
+					<sheet>
+						<group colspan="4">
+							<group>
+								<field name="sequence"/>
+								<field name="name"/>
+							</group>
+							<group> 
+								<field name="catalog_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly':[('no_catalog','=',True)]}"/>
+								<field name="to_search_field" domain="[('model_id', '=', catalog_id)]" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly':[('no_catalog','=',True)]}"/>
+								<field name="position_from"/>
+								<field name="position_to"/>
+								<field name="code_part_pro"/>
+							</group>
+						</group>
+						<group colspan="4">
+							<group col="8">
+								<field name="is_year" attrs="{'readonly':[('is_year','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_check_digit" attrs="{'readonly':[('is_check_digit','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_key" attrs="{'readonly':[('is_key','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_control_number" attrs="{'readonly':[('is_control_number','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_date" attrs="{'readonly':[('is_date','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_authorizer" attrs="{'readonly':[('is_authorizer','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_error" attrs="{'readonly':[('is_error','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_agreement_number" attrs="{'readonly':[('is_agreement_number','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_type_exercise" attrs="{'readonly':[('is_type_exercise','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_amount" attrs="{'readonly':[('is_amount','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_cve_mov" attrs="{'readonly':[('is_cve_mov','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_number_doc" attrs="{'readonly':[('is_number_doc','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_date_doc" attrs="{'readonly':[('is_date_doc','=',False),('no_catalog','=',True)]}"/>
+								<field name="no_catalog" />
+							</group>
+						</group>
+					</sheet> 
+				</form>
+			</field> 
+		</record> 
+		<record id="view_tree_Orden_codigo_pro_rec" model="ir.ui.view">
+			<field name="name">Orden del código programático recalendarizacion tree</field>
+			<field name="model">budget.structure.recalendarization</field>
+			<field name="arch" type="xml">
+				<tree >
+					<field name="sequence"/>
+					<field name="name"/>
+					<field name="catalog_id"/>
+					<field name="position_from"/>
+					<field name="position_to"/> 
+					<field name="code_part_pro"/>               
+				</tree>
+			</field>
+		</record> 
+
+		<act_window
+			id="action_Orden_codigo_pro_rec"
+			name="Orden del código programático(Recalendarizacion)"
+			res_model="budget.structure.recalendarization"
+			view_mode="tree,form"
+			/>
+
+
+
+		<record  id="view_form_Orden_codigo_pro_ade" model="ir.ui.view">
+			<field name="name">Orden del código programático</field>
+			<field name="model">budget.structure.adjustement</field>
+			<field name="arch" type="xml">
+				<form >
+					<header>
+					</header>     
+					<sheet>
+						<group colspan="4">
+							<group>
+								<field name="sequence"/>
+								<field name="name"/>
+								<field name="is_more_less" attrs="{'required':[('no_catalog','!=',True)]}" />
+							</group>
+							<group> 
+								<field name="catalog_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly':[('no_catalog','=',True)]}"/>
+								<field name="to_search_field" domain="[('model_id', '=', catalog_id)]" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly':[('no_catalog','=',True)]}"/>
+								<field name="position_from"/>
+								<field name="position_to"/>
+								<field name="code_part_pro"/>
+							</group>
+						</group>
+						<group colspan="4">
+							<group col="8">
+								<field name="is_year" attrs="{'readonly':[('is_year','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_check_digit" attrs="{'readonly':[('is_check_digit','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_key" attrs="{'readonly':[('is_key','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_control_number" attrs="{'readonly':[('is_control_number','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_date" attrs="{'readonly':[('is_date','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_authorizer" attrs="{'readonly':[('is_authorizer','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_error" attrs="{'readonly':[('is_error','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_agreement_number" attrs="{'readonly':[('is_agreement_number','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_type_exercise" attrs="{'readonly':[('is_type_exercise','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_amount" attrs="{'readonly':[('is_amount','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_cve_mov" attrs="{'readonly':[('is_cve_mov','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_number_doc" attrs="{'readonly':[('is_number_doc','=',False),('no_catalog','=',True)]}"/>
+								<field name="is_date_doc" attrs="{'readonly':[('is_date_doc','=',False),('no_catalog','=',True)]}"/>
+								<field name="no_catalog"/>
+							</group>
+						</group>
+					</sheet> 
+				</form>
+			</field> 
+		</record> 
+		<record id="view_tree_Orden_codigo_pro_ade" model="ir.ui.view">
+			<field name="name">Orden del código programático adjustment tree</field>
+			<field name="model">budget.structure.adjustement</field>
+			<field name="arch" type="xml">
+				<tree >
+					<field name="sequence"/>
+					<field name="name"/>
+					<field name="catalog_id"/>
+					<field name="position_from"/>
+					<field name="position_to"/> 
+					<field name="code_part_pro"/>               
+				</tree>
+			</field>
+		</record> 
+
+		<act_window
+			id="action_Orden_codigo_pro_adec"
+			name="Orden del código programático(Adecuaciones)"
+			res_model="budget.structure.adjustement"
+			view_mode="tree,form"
+			/>
+
+
+		</data>
+</odoo>
