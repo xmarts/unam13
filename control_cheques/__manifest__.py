@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "control_cheques",
+    'name': "Control de cheques UNAM",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Modulo para asignacion y control de cheques de la UNAM""",
 
     'description': """
         Long description of module's purpose
