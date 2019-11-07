@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+ <record id="security_request_checks_approve" model="res.groups">
+ 	<field name="name">Aprobar</field>
+ </record>
+
+  <record id="security_request_check" model="res.groups">
+ 	<field name="name">Solicitar</field>
+ </record>
+
+ 
+</odoo>
