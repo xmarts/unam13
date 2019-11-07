@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "presupuestos",
+    'name': "Presupuestos UNAM",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Modulo de presupuestos para UNAM""",
 
     'description': """
-        Long description of module's purpose
     """,
 
     'author': "My Company",
