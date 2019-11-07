@@ -6,7 +6,6 @@
         Modulo para asignacion y control de cheques de la UNAM""",
 
     'description': """
-        Long description of module's purpose
     """,
 
     'author': "My Company",
