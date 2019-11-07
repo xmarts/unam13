@@ -1,0 +1,46 @@
+<odoo>
+  <data>
+    <!--menus -->
+    <menuitem id="Programas_root" name="Presupuestos"/> 
+    <!--menut de control presupuesto y submenus-->     
+
+    <menuitem id="id_menu_uno" name="Control de Presupuestos" parent="Programas_root" action=""/>
+    <menuitem id="id_menut_control_montos_asig" name="Control de Montos" parent="id_menu_uno" action="action_control_montos_asig" sequence="0"/>   
+    <menuitem id="id_menut_control_monto_dos" name="Control dos" parent="id_menu_uno" action="action_budget_am_all_lines" sequence="1"/>
+
+    <!--menut de modificaciones y submenut-->
+    <menuitem id="id_menu_dos" name="Modificaciones" parent="Programas_root" action=""/>
+    <menuitem id="id_menu_Adecuaciones" name="Adecuaciones" parent="id_menu_dos" action="action_adeudacion_id" sequence="0"/>
+
+    <menuitem id="id_menu_importar_reca" name="Importar recalendarizaciones" parent="id_menu_dos" action="action_archivo_recalendarizacion" sequence="1"/>
+
+    <menuitem id="id_menu_Reca_control" name="Recalendarizaciones" parent="id_menu_dos" action="action_control_recalendarizaciones" sequence="2"/>
+
+
+    <!--menut de informes-->
+    <menuitem id="id_menu_tres" name="Informes" parent="Programas_root" action="action_Programa"/>
+    <!--menut y submenut de configuraciones-->
+    <menuitem id="id_menu_cuatro" name="Configuración" parent="Programas_root" action=""/>
+    <menuitem id="id_menu_cuatro_2" name="Estructura programática" parent="id_menu_cuatro" action=""/>
+    <menuitem id="id_menu_programa" name="Programas" parent="id_menu_cuatro_2" action="action_Programa" sequence="0" />    
+    <menuitem id="id_menu_subprograma" name="Subprogrma" parent="id_menu_cuatro_2" action="action_subprogramas" sequence="1"/>
+    <menuitem id="id_menu_subdependencia" name="Subdependecia" parent="id_menu_cuatro_2" action="action_subdependencia" sequence="2"/>  
+    <menuitem id="id_menu_p_gastos" name="Partida gastos" parent="id_menu_cuatro_2" action="action_partida_gastos" sequence="3"/>
+    <menuitem id="id_menu_o_recurso " name="Origen de Recurso" parent="id_menu_cuatro_2" action="action_origen_recurso" sequence="4"/>
+    <menuitem id="id_menu_act_institu " name="Actividad Institucional" parent="id_menu_cuatro_2" action="action_act_institucional" sequence="5"/>  
+    <menuitem id="id_menu_c_p_p " name="Conversion de  Programa Presupuestario" parent="id_menu_cuatro_2" action="action_conversion_p_p" sequence="6"/>
+    <menuitem id="id_menu_conversion_p " name="Conversión con partida" parent="id_menu_cuatro_2" action="action_conversion_p" sequence="7"/>
+    <menuitem id="id_menu_tipo_g" name="Tipo de gasto" parent="id_menu_cuatro_2" action="action_tipos_de_gastos" sequence="8"/>
+    <menuitem id="id_menu_ubicacion_g" name="Ubicación Geográfica" parent="id_menu_cuatro_2" action="action_ubicacion_g" sequence="9"/>
+    <menuitem id="id_menu_clave_c" name="Clave cartera" parent="id_menu_cuatro_2" action="action_clave_c" sequence="10"/>
+    <menuitem id="id_menu_tipos_p" name="Tipos de proyecto" parent="id_menu_cuatro_2" action="action_tipos_p" sequence="11"/>
+    <menuitem id="id_menu_proyectos" name="Proyectos" parent="id_menu_cuatro_2" action="project.open_view_project_all" sequence="12"/>
+    <menuitem id="id_menu_etapas" name="Etapas" parent="id_menu_cuatro_2" action="action_etapas" sequence="13"/>
+    <menuitem id="id_menu_tipo_convenio" name="Tipos de convenio" parent="id_menu_cuatro_2" action="action_tipo_convenio" sequence="14"/>
+    <menuitem id="id_menu_convenio_nc" name="Convenio" parent="id_menu_cuatro_2" action="action_convenios_nc" sequence="15"/>
+    <menuitem id="id_menu_catalogo_gog" name="Catálogo COG CONAC" parent="id_menu_cuatro_2" action="action_catalogo_cog" sequence="16"/>
+    <menuitem id="id_menu_orden_codigo" name="Orden del código programático" parent="id_menu_cuatro_2" action="action_Orden_codigo_pro" sequence="17"/> 
+    <menuitem id="id_menu_orden_codigo_rec" name="Orden del código programático Rec." parent="id_menu_cuatro_2" action="action_Orden_codigo_pro_rec" sequence="18"/> 
+    <menuitem id="id_menu_orden_codigo_ade" name="Orden del código programático Adec." parent="id_menu_cuatro_2" action="action_Orden_codigo_pro_adec" sequence="18"/> 
+  </data>
+</odoo>

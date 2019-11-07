@@ -1,0 +1,1368 @@
+<odoo>
+  <data>
+
+  <!--vista tree  formulario de la primer tabla Catálogo Programas-->
+   
+    <record  id="view_form_Programas" model="ir.ui.view">
+      <field name="name">Programas</field>
+      <field name="model">budget.program</field>
+      <field name="arch" type="xml">
+        <form >
+          <header>
+          </header>     
+           <sheet>
+              <group>
+                <group>                  
+                  <field name="code" />                  
+                  <field name="name"/> 
+                </group>
+                <group>
+                  <field name="budget_subprogam_id"/>                  
+                </group>
+              </group>
+           </sheet> 
+        </form>
+      </field> 
+    </record> 
+
+    <record id="view_tree_Programa" model="ir.ui.view">
+      <field name="name">Programas tree</field>
+      <field name="model">budget.program</field>
+      <field name="arch" type="xml">
+          <tree >              
+            <field name="code"/>
+            <field name="name"/>
+            <field name="budget_subprogam_id"/>
+          </tree>
+      </field>
+    </record>  
+
+    <act_window
+      id="action_Programa"
+      name="Programas"
+      res_model="budget.program" 
+      view_mode="tree,form"
+    />
+   <!--vista y fomulario de Catálogo SubPrograma--> 
+
+  <record  id="view_form_subprogramas" model="ir.ui.view">
+    <field name="name">Subprogramas</field>
+    <field name="model">budget.subprogram</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>                  
+                <field name="code"/>                  
+                <field name="name"/>
+                <!--<field name="branch_id"/>-->
+              </group>
+              <group>  
+                <field name="subdependence_id"/> 
+                <field name="program_id"/>                
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+    </record> 
+
+    <record id="view_tree_subprogramas" model="ir.ui.view">
+      <field name="name">subprogramas tree</field>
+      <field name="model">budget.subprogram</field>
+      <field name="arch" type="xml">
+          <tree >              
+            <field name="code"/>
+            <field name="name"/>
+            <!--<field name="branch_id"/>-->            
+            <field name="subdependence_id"/> 
+            <field name="program_id"/>    
+          </tree>
+      </field>
+    </record> 
+
+    <act_window
+      id="action_subprogramas"
+      name="SubProgramas"
+      res_model="budget.subprogram"
+      view_mode="tree,form"
+    />
+
+
+ <!--vista formulario  para  Subdependencia (SD)-->
+ 
+  <record  id="view_form_subdependencia" model="ir.ui.view">
+    <field name="name">Subdependencia</field>
+    <field name="model">budget.subdependence</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>                  
+                <field name="code"/>                  
+                <field name="name"/>
+              </group>
+              <group>                
+               <!-- <field name="branch_id"/>  -->              
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+    </record> 
+
+    <record id="view_tree_subdependencia" model="ir.ui.view">
+      <field name="name">subdependencia tree</field>
+      <field name="model">budget.subdependence</field>
+      <field name="arch" type="xml">
+          <tree >      
+            <field name="code"/>                  
+            <field name="name"/>
+            <!--<field name="branch_id"/>  -->               
+          </tree>
+      </field>
+    </record> 
+
+    <act_window
+      id="action_subdependencia"
+      name="Subdependencia"
+      res_model="budget.subdependence"
+      view_mode="tree,form"
+    />
+
+
+<!--vista  y formularios para Partida de Gasto (--> 
+
+  <record  id="view_form_partida_gastos" model="ir.ui.view">
+    <field name="name">Partida de Gasto</field>
+    <field name="model">budget.item</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type_item"/>                
+                <field name="cogconac_id"/>
+              </group>
+              <group>
+                <field name="cogshcp_id"/>
+                <field name="expense_account"/>
+                <field name="debtor_account"/>                
+                <field name="description"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+    <record id="view_tree_partida_gastos" model="ir.ui.view">
+      <field name="name">Partida de Gasto  tree</field>
+      <field name="model">budget.item</field>
+      <field name="arch" type="xml">
+          <tree >      
+            <field name="code"/>
+            <field name="name"/>
+            <field name="type_item"/>                
+            <field name="cogconac_id"/>              
+          </tree>
+      </field>
+    </record> 
+
+    <act_window
+      id="action_partida_gastos"
+      name="Partida de Gasto"
+      res_model="budget.item"
+      view_mode="tree,form"
+    /> 
+
+<!--vistas y formularios para Origen del Recurso(OR)-->
+
+  <record  id="view_form_origen_recurso" model="ir.ui.view">
+    <field name="name">Origen del Recurso</field>
+    <field name="model">budget.resource.origin</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+              <group>
+                <p class="font-weight-bold" >Es ingreso propio</p>
+                <field name="is_income_owne"/>
+                <field name="is_income_owne2"/>
+                <field name="observations"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+    <record id="view_tree_origen_recurso" model="ir.ui.view">
+      <field name="name">Origen del Recurso tree</field>
+      <field name="model">budget.resource.origin</field>
+      <field name="arch" type="xml">
+          <tree >
+            <field name="code"/>
+            <field name="name"/>
+            <field name="observations"/>                 
+          </tree>
+      </field>
+    </record> 
+
+    <act_window
+      id="action_origen_recurso"
+      name="Origen del Recurso"
+      res_model="budget.resource.origin"
+      view_mode="tree,form"
+    />    
+
+
+<!--vista y formulario para Actividad Institucional(AI)-->
+
+  <record  id="view_form_act_institucional" model="ir.ui.view">
+    <field name="name">Actividad Institucional</field>
+    <field name="model">budget.institutional.activity</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_act_institucional" model="ir.ui.view">
+    <field name="name">Actividad Institucional tree</field>
+    <field name="model">budget.institutional.activity</field>
+    <field name="arch" type="xml">
+      <tree >
+        <field name="code"/>
+        <field name="name"/>                 
+      </tree>
+    </field>
+  </record> 
+
+    <act_window
+      id="action_act_institucional"
+      name="Actividad Institucional"
+      res_model="budget.institutional.activity"
+      view_mode="tree,form"
+    />
+
+<!--vista formulario para Conversión de Programa Presupuestario(CONPP).-->
+
+  <record  id="view_form_conversion_p_p" model="ir.ui.view">
+    <field name="name">Conversión de Programa Presupuestario</field>
+    <field name="model">budget.program.conversion</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+              <group> 
+                <field name="cogshcp_id"/>
+                <field name="activity"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_conversion_p_p" model="ir.ui.view">
+    <field name="name">Conversión de programa tree</field>
+    <field name="model">budget.program.conversion</field>
+    <field name="arch" type="xml">
+        <tree >  
+          <field name="code"/>
+          <field name="name"/>
+          <field name="cogshcp_id"/>
+          <field name="activity"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_conversion_p_p"
+    name="Conversión de Programa Presupuestario"
+    res_model="budget.program.conversion"/>
+
+ <!-- formulario y vistas para Conversión con partida (CONPA).--> 
+ 
+ <record  id="view_form_conversion_p" model="ir.ui.view">
+    <field name="name">Conversión con partida</field>
+    <field name="model">budget.item.conversion</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="name"/>
+                <field name="item_number"/>
+              </group>
+              <group>
+              <field name="type_item"/>
+              <field name="cogconac_id"/>                            
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_conversion_p" model="ir.ui.view">
+    <field name="name">Conversión con partida tree</field>
+    <field name="model">budget.item.conversion</field>
+    <field name="arch" type="xml">
+        <tree > 
+          <field name="code"/>
+          <field name="name"/>
+          <field name="item_number"/>
+          <field name="type_item"/>
+          <field name="cogconac_id"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_conversion_p"
+    name="Conversión con partida"
+    res_model="budget.item.conversion"
+    view_mode="tree,form"
+  />
+
+<!--vista y formularios para Tipos de gastos-->
+
+  <record  id="view_form_tipos_gastos" model="ir.ui.view">
+    <field name="name">Tipo de gasto</field>
+    <field name="model">budget.expense.type</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_tipos_gastos" model="ir.ui.view">
+    <field name="name">Tipo de gasto tree</field>
+    <field name="model">budget.expense.type</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="name"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_tipos_de_gastos"
+    name="Tipo de gasto"
+    res_model="budget.expense.type"
+    view_mode="tree,form"
+    />
+
+<!--vista y formulario para Ubicación Geográfica --> 
+
+  <record  id="view_form_ubicacion_g" model="ir.ui.view">
+    <field name="name">Ubicación Geográfica</field>
+    <field name="model">budget.geographic.location</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_ubicacion_g" model="ir.ui.view">
+    <field name="name">Ubicación Geográfica tree</field>
+    <field name="model">budget.geographic.location</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="name"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_ubicacion_g"
+    name="Ubicación Geográfica"
+    res_model="budget.geographic.location"
+    view_mode="tree,form"
+    />
+
+<!--vistas y formularios para Clave cartera-->
+
+  <record  id="view_form_clave_c" model="ir.ui.view">
+    <field name="name">Clave cartera</field>
+    <field name="model">budget.key.portfolio</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+              </group>
+              <group>
+                <field name="entity_id"/>
+                <field name="type_program"/>
+
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_clave_c" model="ir.ui.view">
+    <field name="name">Clave cartera tree</field>
+    <field name="model">budget.key.portfolio</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="entity_id"/>
+          <field name="type_program"/>                
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_clave_c"
+    name="Clave cartera"
+    res_model="budget.key.portfolio"
+    view_mode="tree,form"
+    />
+
+<!--vista y formulario para  Tipos de proyecto-->
+
+  <record  id="view_form_tipos_p" model="ir.ui.view">
+    <field name="name">Tipos de proyecto</field>
+    <field name="model">budget.project.type</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/> 
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_tipos_p" model="ir.ui.view">
+    <field name="name">Tipos de proyecto tree</field>
+    <field name="model">budget.project.type</field>
+    <field name="arch" type="xml">
+        <tree > 
+          <field name="code"/>
+          <field name="name"/>               
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_tipos_p"
+    name="Tipos de proyecto"
+    res_model="budget.project.type"
+    view_mode="tree,form"
+    />  
+
+ <!---vista y formularios para Etapa(E).--> 
+
+  <record  id="view_form_etapas" model="ir.ui.view">
+    <field name="name">Etapas</field>
+    <field name="model">budget.stage</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_etapas" model="ir.ui.view">
+    <field name="name">Etapas tree</field>
+    <field name="model">budget.stage</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="name"/>               
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_etapas"
+    name="Etapas"
+    res_model="budget.stage"
+    view_mode="tree,form"
+    />  
+
+<!--vista y formulario para Tipo de convenio--> 
+
+  <record  id="view_form_tipo_convenio" model="ir.ui.view">
+    <field name="name">Tipo de convenio</field>
+    <field name="model">budget.agreement.type</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_tipo_covenio" model="ir.ui.view">
+    <field name="name">Tipo de convenio tree</field>
+    <field name="model">budget.agreement.type</field>
+    <field name="arch" type="xml">
+        <tree > 
+          <field name="code"/>
+          <field name="name"/>                
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_tipo_convenio"
+    name="Tipo de convenio"
+    res_model="budget.agreement.type"
+    view_mode="tree,form"
+    /> 
+
+ <!--vistas y formularios para Convenios(NC)-->
+
+
+  <record  id="view_form_convenios_nc" model="ir.ui.view">
+    <field name="name">Convenios</field>
+    <field name="model">agreement.agreement</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="agreement_type_id"/>
+              </group>
+              <group>
+                <!--<field name="branch_id"/>-->
+                <field name="budget_subdependence_id"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_convenios_nc" model="ir.ui.view">
+    <field name="name">Convenios tree</field>
+    <field name="model">agreement.agreement</field>
+    <field name="arch" type="xml">
+        <tree > 
+          <field name="code"/>
+          <field name="name"/>
+          <field name="agreement_type_id"/>
+          <!--<field name="branch_id"/>-->
+          <field name="budget_subdependence_id"/>                
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_convenios_nc"
+    name="Convenios"
+    res_model="agreement.agreement"
+    view_mode="tree,form"
+    />    
+
+  <!--vista fomulario Catálogo COG CONAC--> 
+
+  <record  id="view_form_catalogo_cog" model="ir.ui.view">
+    <field name="name">Catálogo COG CONAC</field>
+    <field name="model">budget.cog.conac</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="name"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_catalogo_cog" model="ir.ui.view">
+    <field name="name">Catálogo COG CONAC tree</field>
+    <field name="model">budget.cog.conac</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="name"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_catalogo_cog"
+    name="Catálogo COG CONAC"
+    res_model="budget.cog.conac"
+    view_mode="tree,form"
+    />
+
+  <!--vista y formularios Control de montos asignados budget.amount.allocated.--> 
+  <record  id="view_form_control_montos_asig" model="ir.ui.view">
+    <field name="name">Control de montos asignados</field>
+    <field name="model">budget.amount.allocated</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+          <button name="read_file" string="Importar" attrs="{'invisible':[('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
+          <button name="function_request" states="draft" string="Solicitar" type="object" class="oe_highlight"/>
+          <button name="function_approve" states="solicitud" string="Aprobar" type="object" class="oe_highlight"/>
+          <button name="function_reject" states="solicitud" string="Rechazar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft,solicitud" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
+           <field name="state" widget="statusbar"/>
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="budget_id"/>
+                <field name="user_id"/>
+                <field name="date_import"/>
+                <field name="correct_import" invisible="0" />
+              </group>
+              <group>                
+                <field name="filename" invisible="1" />
+                <field name="file_amount_allocated" filename="filename"/>
+                <field name="reason_for_rejection"/>
+                <field name="description"/>       
+                <field name="record_numbers"/>       
+                <field name="imported_registration_numbers"/>                              
+              </group>
+            </group>
+            <notebook>
+              <page string="Control de depósitos">
+                <sheet>
+                <group>
+                  <group>
+                    <field name="currency_id" />
+                    <field name="assigment_amount" />
+                    <field name="deposit_amount" />
+                    <field name="pending_amount" />
+                    <field name="deposit_date" />
+                  </group>
+                  <group>
+                    <field name="deposit_account_bank_id" />
+                    <field name="comments" />
+                    <field name="move_id" />
+                  </group>
+                </group>
+              </sheet>
+              </page>
+              <page string="Lineas">
+                <sheet>
+                  <field name="budget_amount_allocated_line_ids">
+                    <tree string="Tabla control" editable="bottom">
+                      <field name="allocated_deposit_id" invisible="1"/>
+                      <field name="programmatic_code"/>
+                      <field name="amount"/>
+                      <field name="date"/>
+                      <field name="subdependence_id" optional="show"/>
+                      <field name="program_id" optional="show"/>
+                      <field name="subprogram_id" optional="show"/>
+                      <field name="item_id" optional="show"/>
+                      <field name="resource_origin_id" optional="show"/>
+                      <field name="institutional_activity_id" optional="show"/>
+                      <field name="conpp_id" optional="show"/>
+                      <field name="conpa_id" optional="show"/>
+                      <field name="expense_type_id" optional="show"/>
+                      <field name="geographic_location_id" optional="show"/>
+                      <field name="key_portfolio_id" optional="show"/>                      
+                    </tree>                    
+                  </field>                                 
+                </sheet>
+              </page>
+              <page string="Invalidos">
+                <sheet>
+                  <field name="invalid_rows">    
+                    <tree string="Incorrectos" editable="bottom">
+                      <field name="code"/>
+                      <field name="description"/>
+                      <field name="crossovered_budget_id" invisible="1"/>
+                     </tree>             
+                  </field>                                 
+                </sheet>
+              </page>
+            </notebook>            
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_control_montos_asig" model="ir.ui.view">
+    <field name="name">Control de montos asignados tree</field>
+    <field name="model">budget.amount.allocated</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="budget_id"/>
+          <field name="user_id"/>
+          <field name="date_import"/>
+          <field name="reason_for_rejection"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_control_montos_asig"
+    name=" Control de montos asignados"
+    res_model="budget.amount.allocated"
+    view_mode="tree,form"
+    />
+
+<!--vista y formulario para el mModelo: budget.amount.allocated.lines control de monstos-->
+
+ <record  id="view_form_budget_am_all_lines" model="ir.ui.view">
+    <field name="name">Control montos secuencia</field>
+    <field name="model">budget.amount.allocated.lines</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+        </header>     
+         <sheet>
+            <group>
+              <group>
+
+                <field name="programmatic_code"/>  
+                <field name="amount"/> 
+                <field name="date"/>                 
+                <field name="allocated_deposit_id"/>
+                <!--<field name="branch_id"/> -->
+                <field name="subdependence_id"/> 
+                <field name="program_id"/> 
+                <field name="subprogram_id"/>
+
+                <field name="item_id"/>
+              </group>
+
+              <group> 
+                <field name="resource_origin_id"/> 
+                <field name="institutional_activity_id"/> 
+                <field name="conpp_id"/> 
+                <field name="conpa_id"/> 
+                <field name="expense_type_id"/> 
+                <field name="geographic_location_id"/>
+                <field name="key_portfolio_id"/>                                
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_budget_am_all_lines" model="ir.ui.view">
+    <field name="name">Control montos secuencia tree</field>
+    <field name="model">budget.amount.allocated.lines</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="programmatic_code"/>  
+          <field name="amount"/> 
+          <field name="date"/>                 
+          <field name="allocated_deposit_id"/>
+          <!--<field name="branch_id"/> -->
+          <field name="subdependence_id"/> 
+          <field name="program_id"/> 
+          <field name="subprogram_id"/>                
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_budget_am_all_lines"
+    name="Control montos secuencia"
+    res_model="budget.amount.allocated.lines"
+    view_mode="tree,form"
+    />
+
+<!--vistas y formularios de Adecuaciones  budget.adjustement-->
+  <record  id="view_form_adeudacion_ad" model="ir.ui.view">
+    <field name="name">Adecuaciones</field>
+    <field name="model">budget.adjustement</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>
+          <button name="read_file" string="Importar" attrs="{'invisible':[('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
+          <button name="function_request" states="draft" string="Solicitar" type="object" class="oe_highlight"/>
+          <button name="function_approve" states="solicitud" string="Aprobar" type="object" class="oe_highlight"/>
+          <button name="function_reject" states="draft,solicitud" string="Rechazar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft,solicitud" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
+           <field name="state" widget="statusbar"/>    
+        </header>     
+         <sheet>
+            <group>
+              <group>
+              <field name="code"/>
+              <field name="file" filename='filename'/>
+              <field name="budget_id"/>
+              <field name="move_id"/>
+              </group>
+              <group>
+                <field name="movement_date"/>
+                <field name="reason_for_rejection"/>                        
+                <field name="description"/>
+                <field name="correct_import" invisible="0" />
+                <field name="filename" invisible="1" />
+                <field name="record_numbers"/>       
+                <field name="imported_registration_numbers"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="líneas de adecuación">
+                  <field name="budget_adjustement_line">
+                    <tree string="Adecuacion" editable="bottom">
+                      <field name="programmatic_code"/>
+                      <field name="adjustement_id"/>
+                      <field name="type"/>
+                      <field name="amount"/>
+                     <!-- <field name="branch_id"/>-->
+                      <field name="subdependence_id" optional="show"/>
+                      <field name="program_id" optional="show"/>
+                      <field name="subprogram_id" optional="show"/>
+                      <field name="item_id" optional="show"/>
+                      <field name="resource_origin_id" optional="show"/>
+                      <field name="institutional_activity_id" optional="show"/>
+                      <field name="conpp_id" optional="show"/>
+                      <field name="conpa_id" optional="show"/>
+                      <field name="expense_type_id" optional="show"/>
+                      <field name="geographic_location_id" optional="show"/>
+                      <field name="key_portfolio_id" optional="show"/>
+                     </tree> 
+                  </field>  
+              </page>
+              
+              <page string="Invalidos">
+                <sheet>
+                  <field name="invalid_rows">    
+                    <tree string="Incorrectos" editable="bottom">
+                      <field name="code"/>
+                      <field name="description"/>
+                      <field name="budget_adjustement_id" invisible="1"/>
+                     </tree>             
+                  </field>                                 
+                </sheet>
+              </page>
+            </notebook>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_adeudacion_id" model="ir.ui.view">
+    <field name="name">Adecuaciones tree</field>
+    <field name="model">budget.adjustement</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="movement_date"/>
+          <field name="budget_id"/>
+          <field name="move_id"/>                
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_adeudacion_id"
+    name="Adecuaciones"
+    res_model="budget.adjustement"
+    view_mode="tree,form"
+    />
+
+<!--vista y formularios Importar archivo de recalendarización.-->
+
+ 
+
+ <record  id="view_form_archivo_recalendarizacion" model="ir.ui.view">
+    <field name="name">Importar archivo de recalendarización</field>
+    <field name="model">budget.import.recalendarization</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>          
+          <button name="read_file" string="Importar" attrs="{'invisible':[('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
+          <button name="function_import" states="draft" string="Aprobar" type="object" class="oe_highlight"/>
+          <button name="function_reject" states="draft" string="Rechazar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
+           <field name="state" widget="statusbar"/>  
+        </header>     
+         <sheet>
+            <group>
+              <group> 
+                <field name="code"/>
+                <field name="file" filename="filename"/>
+                <field name="budget_id"/>
+                <field name="record_number"/>
+              </group>
+              <group>
+                <field name="records_number_imported"/>
+                <field name="reason_for_rejection"/>
+                <field name="description"/>
+                <field name="correct_import"/>
+                <field name="filename" invisible="1"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Recalendarizaciones" >
+                <field name="budget_rescheduling_lines">
+                  <tree string="Lienas de recalendarizacion" editable="bottom">
+                    <field name="programmatic_code"/>
+                    <field name="code"/>
+                    <field name="budget_id" optional="show"/>
+                    <field name='amount' />
+                    <field name="date"/>
+                    <field name="to_period"/>
+                    <field name="state"/>
+                    <field name="reason_for_rejection" optional="show"/>
+                    <field name="import_recalendarization_id" invisible="1"/>
+                    <field name="subdependence_id" optional="show"/>
+                    <field name="program_id" optional="show"/>
+                    <field name="subprogram_id" optional="show"/>
+                    <field name="item_id" optional="show"/>
+                    <field name="resource_origin_id" optional="show"/>
+                    <field name="institutional_activity_id" optional="show"/>
+                    <field name="conpp_id" optional="show"/>
+                    <field name="conpa_id" optional="show"/>
+                    <field name="expense_type_id" optional="show"/>
+                    <field name="geographic_location_id" optional="show"/>
+                    <field name="key_portfolio_id" optional="show"/>
+                    <field name="move_id" />
+                  </tree>
+                </field>
+              </page>
+              <page string="Invalidos">
+                <sheet>
+                  <field name="invalid_rows">    
+                    <tree string="Incorrectos" editable="bottom">
+                      <field name="code"/>
+                      <field name="description"/>
+                      <field name="budget_import_recalendarization_id" invisible="1"/>
+                     </tree>             
+                  </field>                                 
+                </sheet>
+              </page>
+            </notebook>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_archivo_recalendarizacion" model="ir.ui.view">
+    <field name="name">Importar archivo de recalendarización tree</field>
+    <field name="model">budget.import.recalendarization</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="file"/>
+          <field name="budget_id"/>
+          <field name="record_number"/>                 
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_archivo_recalendarizacion"
+    name="Importar archivo de recalendarización"
+    res_model="budget.import.recalendarization"
+    view_mode="tree,form"
+    />
+<!--Control de recalendarizaciones.-->
+
+ <record  id="view_form_control_recalendarizaciones" model="ir.ui.view">
+    <field name="name">Control de recalendarizaciones</field>
+    <field name="model">budget.rescheduling</field>
+    <field name="arch" type="xml">
+      <form >
+        <header>          
+          <button name="function_name" states="draft" string="Importar" type="object" class="oe_highlight"/>
+          <button name="function_name" states="draft" string="Aprobar" type="object" class="oe_highlight"/>
+          <button name="function_name" states="draft" string="Rechazar" type="object" class="oe_highlight"/>
+          <button name="function_name" states="draft" string="Cancelar" type="object" class="oe_highlight"/>
+          <field name="state" widget="statusbar"/> 
+        </header>     
+         <sheet>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="programmatic_code"/>
+                <field name="budget_id"/>
+                <field name="to_period"/>
+                <field name="import_recalendarization_id"/>
+               <!-- <field name="branch_id"/>-->
+                <field name="subdependence_id"/>
+                <field name="program_id"/>
+                <field name="subprogram_id"/>
+                <field name="item_id"/>
+              </group>
+              <group>
+              <field name="amount"/>        
+              <field name="date"/>                               
+              <field name="resource_origin_id"/>
+              <field name="institutional_activity_id"/>
+              <field name="conpp_id"/>
+              <field name="conpa_id"/>
+              <field name="expense_type_id"/>
+              <field name="geographic_location_id"/>
+              <field name="key_portfolio_id"/>
+              <field name="move_id"/>
+              <field name="reason_for_rejection"/>
+              </group>
+            </group>
+         </sheet> 
+      </form>
+    </field> 
+  </record> 
+
+  <record id="view_tree_control_recalendarizaciones" model="ir.ui.view">
+    <field name="name">Control de recalendarizaciones tree</field>
+    <field name="model">budget.rescheduling</field>
+    <field name="arch" type="xml">
+        <tree >
+          <field name="code"/>
+          <field name="to_period"/>
+          <!--<field name="branch_id"/>-->
+          <field name="subdependence_id"/>
+          <field name="date"/> 
+          <field name="expense_type_id"/>
+          <field name="move_id"/>
+        </tree>
+    </field>
+  </record> 
+
+  <act_window
+    id="action_control_recalendarizaciones"
+    name="Control de recalendarizaciones"
+    res_model="budget.rescheduling"
+    view_mode="tree,form"
+    />
+
+  <!--inherit al modelo de branch aqui empieza
+  <record id="Dependencia_inherit_branch" model="ir.ui.view">
+    <field name="name">Dependencia.inherit.branch</field>
+    <field name="model">res.branch</field>
+    <field name="inherit_id" ref="branch.branch_res_branch_view_form"/>
+    <field name="arch" type="xml">
+      <!el campo code ba antes de nombre
+      <xpath expr="//field[@name='name']" position="before">
+        <field name="code"/>
+      </xpath>
+
+      <los demas campos van despues de   
+      <xpath expr="//field[@name='address']" position="after">
+        <field name="head"/>
+        <field name="secretary"/>
+        <field name="No_dependence"/>
+        <field name="subdependence_id"/>
+      </xpath>
+    </field>
+  </record> -->
+
+  <!--inherit al modleo de project Proyectos (NP).--> 
+  <record id="proyect_inherit_project" model="ir.ui.view">
+    <field name="name">proyect.inherit.project</field>
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.edit_project"/>
+    <field name="arch" type="xml">
+      <!--el campo code ba antes de nombre-->
+      <xpath expr="//field[@name='user_id']" position="before">
+        <field name="code"/>    
+      </xpath>
+
+      <xpath expr="//field[@name='partner_id']" position="after">                 
+        <field name="sub_type"/>
+        <field name="type_project_id"/>
+        <field name="date_start"/>  
+      </xpath>
+      
+      <xpath expr="//field[@name='company_id']" position="after">        
+        <field name="date"/>
+        <field name="amount_allocated"/>
+        <field name="consumed_amount"/> 
+      </xpath>
+
+    </field>
+  </record> 
+<!--Asientos contables. modelo  account.move.lines -->
+  <record id="proyect_inherit_move_lines" model="ir.ui.view">
+    <field name="name">proyect_inherit_move_lines</field>
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account.view_move_line_form"/>
+    <field name="arch" type="xml">
+      <!--el campo code ba antes de nombre-->
+      <xpath expr="//page[2]" position="after">
+        <page string="Cambios">
+          <group>
+            <group>
+             <!-- <field name="branch_id"/>-->
+              <field name="subdependence_id"/>
+              <field name="program_id"/>
+              <field name="subprogram_id"/>
+              <field name="item_id"/>
+              <field name="resource_origin_id"/>
+              <field name="institutional_activity_id"/>
+              <field name="conpp_id"/>
+            </group>
+            <group>
+              <field name="conpa_id"/>
+              <field name="expense_type_id"/>
+              <field name="geographic_location_id"/>
+              <field name="key_portfolio_id"/>
+              <field name="type_project_id"/>
+              <field name="project_number_id"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record> 
+
+<!--inherit al modleo  crossovered.budget.Captura inicial del presupuesto.-->
+  <record id="proyect_inherit_presupuestos_croos" model="ir.ui.view">
+    <field name="name">proyect_inherit_presupuestos_croos</field>
+    <field name="model">crossovered.budget</field>
+    <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//button[@name='action_budget_confirm']" position="after">
+        <button name="read_file"   string="Importar presupuesto" type="object" class="oe_highlight" attrs="{'invisible':['|',('budget_of_project_dgpo' ,'=' ,False),('correct_import' ,'=' ,True)]}"/>
+      </xpath>
+
+     <!--despues del page-->
+      <xpath expr="//field[@name='user_id']" position="after">
+        <field name="budget_of_project_dgpo"/>
+        <field name="file_import" widget="binary" filename="filename" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}"/>
+        <field name="correct_import" invisible="1"/>
+        <field name="filename" invisible="1"/>
+        <field name="total_budget" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}"/>
+      </xpath>
+      <xpath expr="//field[@name='company_id']" position="after" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}">        
+        <field name="record_numbers" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}"/>             
+        <field name="imported_registration_numbers" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}"/>
+        <field name="move_id" attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}"/>
+        <field name="programatic_code"/>
+      </xpath>
+      <xpath expr="//page" position="after">
+        <page string="líneas incorrectas txt"  attrs="{'invisible':[('budget_of_project_dgpo' ,'=' ,False)]}">
+          <sheet>
+            <field name="invalid_rows">
+              <tree string="Incorrectos" editable="bottom">
+                <field name="code"/>
+                <field name="description"/>
+                <field name="crossovered_budget_id" invisible="1"/>
+               </tree> 
+            </field>  
+          </sheet>
+        </page>
+      </xpath>
+    </field>
+  </record>
+
+  <!--inherits al modelo  Líneas del presupuesto model  crossovered.budget.lines-->
+<record id="id_cnuev_crossovered_budeget_lines" model="ir.ui.view">
+    <field name="name">id.cnuev.crossovered.budeget.lines</field>
+    <field name="model">crossovered.budget</field>
+    <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+    <field name="arch" type="xml">
+      <!--se remplazaron campos para poder ocultarlos en la tabla -->
+      <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='paid_date']" position="replace">
+        <field name="paid_date" invisible="1"/>
+      </xpath>
+      <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='theoritical_amount']" position="replace">
+        <field name="theoritical_amount" invisible="1"/>
+      </xpath>
+      <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='percentage']" position="replace">
+        <field name="percentage" invisible="1"/>
+      </xpath>
+
+      <!--campos del diseño agregados ala tabla-->
+      <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='analytic_account_id']" position="before">
+        <field name="programmatic_account"/>
+      </xpath>
+      <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='is_above_budget']" position="after">
+          <field name="authorized_amount" optional="show"/>
+          <field name="amount_allocate" optional="show"/>
+          <field name="amount_available" optional="show"/>
+          <field name="amount_modified" optional="show"/>
+          <field name="amount_committed" optional="show"/>
+          <field name="accrued_amount" optional="show"/>
+          <field name="amount_applied" optional="show"/>
+          <field name="amount_paid" optional="show"/>
+          <field name="amount_available2" optional="show"/>
+
+      </xpath>
+      <!--campos adicionales al formulario de crossovered_budget_line-->
+      <xpath expr="//field[@name='crossovered_budget_line']//form//field[@name='analytic_account_id']" position="after">
+        <field name="authorized_amount"/>
+        <field name="amount_allocate"/>
+        <field name="amount_committed"/>
+        <field name="accrued_amount"/>
+        <field name="amount_available"/>
+        <field name="amount_paid"/>
+        <field name="amount_applied"/>
+        <field name="amount_modified"/>
+        <field name="amount_available2"/>
+        <field name="programmatic_account"/>
+        <!--<field name="branch_id"/>-->
+      </xpath>
+      
+       <xpath expr="//field[@name='crossovered_budget_line']//form//field[@name='paid_date']" position="after">
+        <field name="subdependence_id"/>
+        <field name="program_id"/>
+        <field name="subprogram_id"/>
+        <field name="item_id"/>
+        <field name="resource_origin_id"/>
+        <field name="institutional_activity_id"/>
+        <field name="conpp_id"/>
+        <field name="conpa_id"/>
+        <field name="expense_type_id"/>
+        <field name="geographic_location_id"/>
+        <field name="key_portfolio_id"/>
+       </xpath> 
+    </field>
+  </record> 
+<!--inherit Validación del presupuesto, solicitudes de pago.-->
+
+<record id="inherit_solicitudes_presu" model="ir.ui.view">
+  <field name="name">inherit_solicitudes_presu</field>
+  <field name="model">account.move</field>
+  <field name="inherit_id" ref="account.view_move_form"/>
+  <field name="arch" type="xml">
+
+    <xpath expr="//field[@name='invoice_date']" position="after">
+      <field name="sub_state"/>
+    </xpath>
+    <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='analytic_account_id']" position="before">
+      <field name="programmatic_code"/>
+    </xpath>
+    <xpath expr="//field[@name='line_ids']/tree//field[@name='account_id']" position="before">
+      <field name="programmatic_code"/>
+    </xpath>
+    
+    <xpath expr="//field[@name='invoice_line_ids']//form//field[@name='name']" position="after">
+
+            <group>
+              
+            <group >              
+            <field name="programmatic_code" optional="show"/>
+            <!-- <field name="branch_id"/> -->
+            <field name="subdependence_id" optional="show"/>
+            <field name="program_id" optional="show"/>
+            <field name="subprogram_id" optional="show"/>
+            <field name="item_id"/>
+            <field name="check_digit_id" optional="show"/>
+            <field name="resource_origin_id" optional="show"/>
+            <field name="institutional_activity_id" optional="show"/>
+            <field name="conpp_id"/>
+            </group>
+            <group>
+              <field name="conpa_id" optional="show"/>
+              <field name="expense_type_id" optional="show"/>
+              <field name="geographic_location_id" optional="show"/>
+              <field name="key_portfolio_id" optional="show"/>
+              <field name="type_project_id" optional="show"/>
+              <field name="project_number_id" optional="show"/>
+              <field name="stage" optional="show"/>
+              <field name="agreement_type_id" optional="show"/>
+              <field name="agreement_number" optional="show"/>
+            </group> 
+
+            </group> 
+     
+    </xpath>
+    </field>
+  </record> 
+
+
+  </data>
+</odoo>
