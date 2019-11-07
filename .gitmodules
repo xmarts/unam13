@@ -1,6 +1,3 @@
 [submodule "multi_branch"]
 	path = multi_branch
 	url = git@github.com:viernes/multi_branch.git
-[submodule "control_cheques_unam"]
-	path = control_cheques_unam
-	url = git@github.com:xmarts/control_cheques_unam.git
