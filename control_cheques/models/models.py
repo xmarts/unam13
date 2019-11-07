@@ -122,7 +122,7 @@ class checkbank(models.Model):
 		('2','Asignado'),
 		('3','Cancelado'),
 		('4','Pagado')], default="1", string='Estado general', required=True)
-	history_c=fields.One2many('checks.bank.check','check_bank_id')
+	history_c=fields.One2many('checks.bank.check.history','check_bank_id')
 
 class checkbankhistory(models.Model):
 	_name='checks.bank.check.history'
