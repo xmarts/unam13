@@ -8,7 +8,7 @@
     'description': """
     """,
 
-    'author': "My Company",
+    'author': "Xmarts",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
