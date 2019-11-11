@@ -1,10 +1,13 @@
 <odoo>
   <data>
     <!--menus -->
-    <menuitem id="Programas_root" name="Presupuestos"/> 
+    <menuitem id="Programas_root" name="Presupuestos" web_icon="presupuestos,description/budget.png"/> 
     <!--menut de control presupuesto y submenus-->     
-
-    <menuitem id="id_menu_uno" name="Control de Presupuestos" parent="Programas_root" action=""/>
+    <act_window
+    id="action_budget_inherit_view"
+    name="Presupuestos"
+    res_model="crossovered.budget"/>
+    <menuitem id="id_menu_uno" name="Control de Presupuestos" parent="Programas_root" action="action_budget_inherit_view"/>
     <menuitem id="id_menut_control_montos_asig" name="Control de Montos" parent="id_menu_uno" action="action_control_montos_asig" sequence="0"/>   
     <menuitem id="id_menut_control_monto_dos" name="Control dos" parent="id_menu_uno" action="action_budget_am_all_lines" sequence="1"/>
 
