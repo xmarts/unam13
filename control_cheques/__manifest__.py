@@ -6,10 +6,9 @@
         Modulo para asignacion y control de cheques de la UNAM""",
 
     'description': """
-        Long description of module's purpose
     """,
 
-    'author': "My Company",
+    'author': "Xmarts",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
