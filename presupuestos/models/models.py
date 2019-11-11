@@ -923,6 +923,38 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
             self.env['account.move.line'].with_context(check_move_validity=False).create(v2)
         self.move_id = move.id
 
+        for x in self.budget_amount_allocated_line_ids:
+            vals = {
+                'name':x.programmatic_code,
+                'account_ids':[(6, 0, [x.item_id.expense_account.id])]
+            }
+            print(vals)
+            account_budget_post = self.env['account.budget.post'].create(vals)
+            vars = {
+                    'programmatic_account':x.programmatic_code,
+                    'subdependence_id':x.subdependence_id.id,
+                    'program_id':x.program_id.id,
+                    'subprogram_id':x.subprogram_id.id,
+                    'item_id':x.item_id.id,
+                    'resource_origin_id':x.resource_origin_id.id,
+                    'institutional_activity_id':x.institutional_activity_id.id,
+                    'conpp_id':x.conpp_id.id,
+                    'conpa_id':x.conpa_id.id,
+                    'expense_type_id':x.expense_type_id.id,
+                    'geographic_location_id':x.geographic_location_id.id,
+                    'key_portfolio_id':x.key_portfolio_id.id,
+                    'date_from':datetime(2019, 1, 1),
+                    'date_to':datetime(2019, 3, 31),
+                    'planned_amount':float(self.assigment_amount),
+                    'authorized_amount':float(self.assigment_amount),
+                    'amount_allocate':float(x.amount),
+                    'general_budget_id':account_budget_post.id,
+                    'crossovered_budget_id': self.budget_id.id
+                }
+            print(vars)
+            account_budget_line = self.env['crossovered.budget.lines'].create(vars)
+
+
     def read_file(self):
         self.invalid_rows = [(5, 0, 0)]
         if self.file_amount_allocated:
