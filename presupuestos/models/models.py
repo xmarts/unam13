@@ -624,7 +624,7 @@ class InheritCrossoveredBudget(models.Model):# modelo el cual hace un inherit al
                             valid = False
                             message += ' Código invalido en el modelo '+ y.catalog_id.name + '. \n'
                     data_code += '\n'+y.name+', '  
-                    pc += position + ' '
+                    pc += position + '.'
                 if valid == True:
                     count_valid += 1
                 else:
@@ -693,7 +693,7 @@ class InheritCrossoveredBudget(models.Model):# modelo el cual hace un inherit al
                 asigned = 0
                 for y in structure:
                     position = x[y.position_from:y.position_to]
-                    pc = pc + position + ' '
+                    pc = pc + position + '.'
                     if y.is_year == True:
                         year = position
                     if y.is_check_digit == True:
@@ -948,7 +948,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                         if not search_model:
                             valid = False
                             message += ' Código invalido en el modelo '+ y.catalog_id.name + '. \n'
-                    pc += position + ' '
+                    pc += position + '.'
                 if valid == True:
                     count_valid += 1
                 else:
@@ -995,7 +995,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                     key_portfolio_id = ''
                     for y in structure:
                         position = x[y.position_from:y.position_to]
-                        programmatic_code += str(position + ' ')
+                        programmatic_code += str(position + '.')
                         if y.is_authorized_budget == True:
                             amount = position
                         if y.catalog_id.model:
@@ -1194,7 +1194,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
                 number_line += 1
                 for y in structure:
                     position = x[y.position_from:y.position_to]
-                    pc += str(position + ' ')
+                    pc += str(position + '.')
                     if y.to_search_field:
                         search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
                         if not search_model:
@@ -1246,7 +1246,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
                 for y in structure:
                     position = x[y.position_from:y.position_to]
                     print("POSISION :: ",position)
-                    programmatic_code += str(position + ' ')
+                    programmatic_code += str(position + '.')
                     if y.is_amount == True:
                             amount = position
                     if y.catalog_id.model:
@@ -1411,7 +1411,7 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                         if not search_model:
                             valid = False
                             message += ' Código invalido en el modelo '+ y.catalog_id.name + '. \n'
-                    pc += position + ' '
+                    pc += position + '.'
                 if valid == True:
                     count_valid += 1
                 else:
@@ -1456,7 +1456,7 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                 fecha = ''
                 for y in structure:
                     position = x[y.position_from:y.position_to]
-                    programmatic_code += str(position + ' ')
+                    programmatic_code += str(position + '.')
                     if y.is_amount == True:
                         amount = position
                     if y.is_number_doc == True:
