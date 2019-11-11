@@ -74,7 +74,13 @@ class check(models.Model):
 	def to_refuse(self):
 		self.state="6"
 	def Generate_trade(self):
-		raise ValidationError("Jalo")
+		vals = {
+		'checkbook_id':self.id,
+		'bankcheck_number':self.id,
+		'state':'1',
+		'g_state':'1'
+		}
+		self.env['checks.bank.check'].create(vals)
 
 	def get_code(self):
 		for x in self:
@@ -86,6 +92,8 @@ class check(models.Model):
 	#		record_name = str(record.checkbook_number)
 	#		result.append((record.id, record_name))
 	#	return result
+
+	
 class printcheck(models.Model):
 	_name="checks.checkbook.print.test"
 
@@ -118,10 +126,11 @@ class checkbank(models.Model):
 	#branch_id=fields.Many2one('branch',string='Dependencia',required=True)
 	reason_for_cancellation_id=fields.Many2one('reason.for.cancellation',string='Motivo de cancelación')
 	g_state=fields.Selection(
-		[('1','Disponible'),
+		[('0','Espera'),
+		('1','Disponible'),
 		('2','Asignado'),
 		('3','Cancelado'),
-		('4','Pagado')], default="1", string='Estado general', required=True)
+		('4','Pagado')],default='0', string='Estado general', required=True)
 	history_c=fields.One2many('checks.bank.check.history','check_bank_id')
 
 class checkbankhistory(models.Model):
