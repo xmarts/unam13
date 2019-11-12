@@ -135,10 +135,8 @@
                   <field name="request_file" />
                   <field name="confirmation_document" attrs="{'required':[('state','=', '4')], 'invisible':[('state','!=','4')]}"/>
                   <field name="checks_test_print" />
-
-
-
                   <field name="number_check" attrs="{'invisible':[('checks_test_print','=', False)], 'required':[('checks_test_print','=', True)]}"/>
+                  <field name="bankcheck_testprint_id" attrs="{'invisible':[('checks_test_print','=', False)], 'required':[('checks_test_print','=', True)]}"/>
                 </group>
               </group>
               <notebook>

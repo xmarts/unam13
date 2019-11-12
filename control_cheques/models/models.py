@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+
 class reorderchecks(models.Model):
 	_name = 'checks.reorder.point'
 
@@ -43,6 +44,7 @@ class check(models.Model):
 	checks_received=fields.Integer(string='Cheques recibidos')
 	checks_per_box=fields.Integer(string='Cheques por caja')
 	number_check=fields.Integer(string='Número de folios')
+	bankcheck_testprint_id=fields.Many2one('checks.checkbook.print.test', string='Folios de muestra')
 	reason_for_rejection=fields.Text(string='Motivo del rechazo')
 	state =fields.Selection(
 		[('1','Borrador'),
@@ -71,6 +73,14 @@ class check(models.Model):
 		self.state="5"
 	def confirm(self):
 		self.state="4"
+
+		#if self.checks_test_print==True:
+			#vals = {
+			#'bankcheck_number':'123456',
+			#'g_state':'3'
+			#}
+			#check = self.env['checks.bank.check'].create(vals)
+
 	def to_refuse(self):
 		self.state="6"
 	def Generate_trade(self):
@@ -78,9 +88,9 @@ class check(models.Model):
 		'checkbook_id':self.id,
 		'bankcheck_number':self.id,
 		'state':'1',
-		'g_state':'1'
 		}
 		self.env['checks.bank.check'].create(vals)
+		print(state)
 
 	def get_code(self):
 		for x in self:
@@ -92,11 +102,23 @@ class check(models.Model):
 	#		record_name = str(record.checkbook_number)
 	#		result.append((record.id, record_name))
 	#	return result
+	#@api.onchange('checks_test_print')
+	#def check_change(self):
+		
+		#if self.checks_test_print==True:
+			#self.state='6'
+			#print(self.state)
+			
+			#print('Deadpool Malo')
+		#else:
+			#self.state='1'
+			#print(self.state)
 
-	
+
 class printcheck(models.Model):
 	_name="checks.checkbook.print.test"
 
+	name=fields.Char(string="No° de registro")
 	checkbook_id=fields.Many2one('checks.checkbook',string='Chequera', required=True)
 	bankcheck_number=fields.Integer(string='Folio', required=True)
 	comments=fields.Text(string='Observaciones', required=True)
@@ -200,6 +222,7 @@ class requestcheck(models.Model):
 
 class checkrequestline(models.Model):
 	_name='checks.request.check.line'
+
 
 	request_check_id=fields.Many2one(string='Solicitud de cheque en banco', required=True)
 	check_id=fields.Many2one(string='Cheque', required=True)
