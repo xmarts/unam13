@@ -976,7 +976,7 @@
           <button name="read_file" string="Importar" attrs="{'invisible':['|',('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
           <button name="function_import" states="draft" string="Aprobar" type="object" class="oe_highlight"/>
           <button name="function_reject" states="draft" string="Rechazar" type="object" class="oe_highlight"/>
-          <button name="function_cancel" states="draft" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft,import" string="Cancelar" type="object" class="oe_highlight"/>
           <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
            <field name="state" widget="statusbar"/>  
         </header>     

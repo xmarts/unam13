@@ -1420,6 +1420,8 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
         self.state = 'reject'
 
     def function_cancel(self):
+        for x in self.budget_rescheduling_lines:
+            x.move_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):
