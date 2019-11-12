@@ -971,7 +971,7 @@
     <field name="arch" type="xml">
       <form >
         <header>          
-          <button name="read_file" string="Importar" attrs="{'invisible':[('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
+          <button name="read_file" string="Importar" attrs="{'invisible':['|',('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
           <button name="function_import" states="draft" string="Aprobar" type="object" class="oe_highlight"/>
           <button name="function_reject" states="draft" string="Rechazar" type="object" class="oe_highlight"/>
           <button name="function_cancel" states="draft" string="Cancelar" type="object" class="oe_highlight"/>
