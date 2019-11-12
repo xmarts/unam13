@@ -874,7 +874,7 @@
     <field name="arch" type="xml">
       <form >
         <header>
-          <button name="read_file" string="Importar" attrs="{'invisible':[('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
+          <button name="read_file" string="Importar" attrs="{'invisible':['|',('correct_import' ,'=' ,True),('state','!=','draft')]}" type="object" class="oe_highlight"/>
           <button name="function_request" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','draft')]}" string="Solicitar" type="object" class="oe_highlight"/>
           <button name="function_approve" string="Aprobar" type="object" class="oe_highlight" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','solicitud')]}"/>
           <button name="function_reject" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','solicitud')]}" string="Rechazar" type="object" class="oe_highlight"/>
@@ -894,7 +894,7 @@
                 <field name="movement_date"/>
                 <field name="reason_for_rejection"/>                        
                 <field name="description"/>
-                <field name="correct_import" invisible="0" />
+                <field name="correct_import" invisible="1" />
                 <field name="filename" invisible="1" />
                 <field name="record_numbers"/>       
                 <field name="imported_registration_numbers"/>
