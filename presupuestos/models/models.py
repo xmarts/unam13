@@ -1180,6 +1180,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
         self.state = 'reject'
 
     def function_cancel(self):
+        self.move_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):

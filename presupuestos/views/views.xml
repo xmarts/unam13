@@ -762,7 +762,7 @@
                       <field name="geographic_location_id" optional="show"/>
                       <field name="key_portfolio_id" optional="show"/>      
                       <field name="crossovered_budget_line_id" optional="show"/>      
-                                      
+
                     </tree>                    
                   </field>                                 
                 </sheet>
@@ -880,7 +880,7 @@
           <button name="function_request" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','draft')]}" string="Solicitar" type="object" class="oe_highlight"/>
           <button name="function_approve" string="Aprobar" type="object" class="oe_highlight" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','solicitud')]}"/>
           <button name="function_reject" attrs="{'invisible':['|',('correct_import' ,'!=' ,True),('state','!=','solicitud')]}" string="Rechazar" type="object" class="oe_highlight"/>
-          <button name="function_cancel" states="draft,solicitud" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft,solicitud,approve" string="Cancelar" type="object" class="oe_highlight"/>
           <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
            <field name="state" widget="statusbar"/>    
         </header>     
