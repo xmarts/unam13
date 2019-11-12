@@ -1561,7 +1561,7 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                 }
                 print(vars)
                 budget_rescheduling_line = self.env['budget.rescheduling'].create(vars)
-            #self.correct_import = True
+            self.correct_import = True
 
 class BudgetRescheduling(models.Model):# modelo para Control de recalendarizaciones. pag35
     _name = 'budget.rescheduling'
