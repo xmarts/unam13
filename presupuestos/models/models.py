@@ -1407,6 +1407,8 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
 
     def function_import(self):
         self.state = 'import'
+        for x in self.budget_rescheduling_lines:
+            x.create_account_move_unam()
 
     def function_reject(self):
         self.state = 'reject'
