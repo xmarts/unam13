@@ -1572,7 +1572,7 @@ class BudgetRescheduling(models.Model):# modelo para Control de recalendarizacio
     programmatic_code = fields.Char(string="Código programático",required=True)
     date = fields.Date(string="Fecha",default=fields.Date.today(),required=True)
     to_period = fields.Selection([('t1','Trimestre 1'),('t2','Trimestre 2'),('t3','Trimestre 3'),('t4','Trimestre 4')],string="Enviar a",required=True)
-    state = fields.Selection([('draft','Borrador'),('import','Importado'),('reject','Rechazado'),('cancel','Cancelado')],default="draft")
+    state = fields.Selection([('draft','Borrador'),('import','Importado'),('reject','Rechazado'),('cancel','Cancelado')],default="draft", related="import_recalendarization_id.state")
     reason_for_rejection = fields.Char(string="Motivo del rechazo")
     import_recalendarization_id = fields.Many2one('budget.import.recalendarization',string="Recalendarización",required=True)
     #branch_id =fields.Many2one('res.branch',string="Dependencia",required=True)
