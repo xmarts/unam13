@@ -891,6 +891,9 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
         self.state = 'reject'
 
     def function_cancel(self):
+        self.move_id.unlink()
+        for x in self.budget_amount_allocated_line_ids:
+            x.crossovered_budget_line_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):
@@ -953,6 +956,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                 }
             print(vars)
             account_budget_line = self.env['crossovered.budget.lines'].create(vars)
+            x.crossovered_budget_line_id = account_budget_line.id
 
 
     def read_file(self):
@@ -1132,6 +1136,7 @@ class BudgetAmountAllocatedLines(models.Model): #parte del modelo budget.amount.
     expense_type_id = fields.Many2one('budget.expense.type',string="Tipo de gasto")
     geographic_location_id = fields.Many2one('budget.geographic.location',string="Ubicación geográfica")
     key_portfolio_id = fields.Many2one('budget.key.portfolio',string="Clave cartera")
+    crossovered_budget_line_id = fields.Many2one('crossovered.budget.lines', "Linea de presupuesto")
 
 class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
     _name='budget.adjustement'
@@ -1175,6 +1180,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
         self.state = 'reject'
 
     def function_cancel(self):
+        self.move_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):
@@ -1407,11 +1413,15 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
 
     def function_import(self):
         self.state = 'import'
+        for x in self.budget_rescheduling_lines:
+            x.create_account_move_unam()
 
     def function_reject(self):
         self.state = 'reject'
 
     def function_cancel(self):
+        for x in self.budget_rescheduling_lines:
+            x.move_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):
@@ -1557,11 +1567,12 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                     'to_period':'t1',
                     'import_recalendarization_id':self.id,
                     'budget_id':self.budget_id.id,
-                    'code': folio
+                    'code': folio,
+                    'amount':amount
                 }
                 print(vars)
                 budget_rescheduling_line = self.env['budget.rescheduling'].create(vars)
-            #self.correct_import = True
+            self.correct_import = True
 
 class BudgetRescheduling(models.Model):# modelo para Control de recalendarizaciones. pag35
     _name = 'budget.rescheduling'
@@ -1572,7 +1583,7 @@ class BudgetRescheduling(models.Model):# modelo para Control de recalendarizacio
     programmatic_code = fields.Char(string="Código programático",required=True)
     date = fields.Date(string="Fecha",default=fields.Date.today(),required=True)
     to_period = fields.Selection([('t1','Trimestre 1'),('t2','Trimestre 2'),('t3','Trimestre 3'),('t4','Trimestre 4')],string="Enviar a",required=True)
-    state = fields.Selection([('draft','Borrador'),('import','Importado'),('reject','Rechazado'),('cancel','Cancelado')],default="draft")
+    state = fields.Selection([('draft','Borrador'),('import','Importado'),('reject','Rechazado'),('cancel','Cancelado')],default="draft", related="import_recalendarization_id.state")
     reason_for_rejection = fields.Char(string="Motivo del rechazo")
     import_recalendarization_id = fields.Many2one('budget.import.recalendarization',string="Recalendarización",required=True)
     #branch_id =fields.Many2one('res.branch',string="Dependencia",required=True)

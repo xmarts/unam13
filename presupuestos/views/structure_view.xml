@@ -91,7 +91,7 @@
 								<field name="is_cve_mov" attrs="{'readonly':[('is_cve_mov','=',False),('no_catalog','=',True)]}"/>
 								<field name="is_number_doc" attrs="{'readonly':[('is_number_doc','=',False),('no_catalog','=',True)]}"/>
 								<field name="is_date_doc" attrs="{'readonly':[('is_date_doc','=',False),('no_catalog','=',True)]}"/>
-								<field name="no_catalog" />
+								<field name="no_catalog" invisible="1"/>
 							</group>
 						</group>
 					</sheet> 
@@ -159,7 +159,7 @@
 								<field name="is_cve_mov" attrs="{'readonly':[('is_cve_mov','=',False),('no_catalog','=',True)]}"/>
 								<field name="is_number_doc" attrs="{'readonly':[('is_number_doc','=',False),('no_catalog','=',True)]}"/>
 								<field name="is_date_doc" attrs="{'readonly':[('is_date_doc','=',False),('no_catalog','=',True)]}"/>
-								<field name="no_catalog"/>
+								<field name="no_catalog"  invisible="1"/>
 							</group>
 						</group>
 					</sheet> 
