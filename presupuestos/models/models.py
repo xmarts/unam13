@@ -891,6 +891,9 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
         self.state = 'reject'
 
     def function_cancel(self):
+        self.move_id.unlink()
+        for x in self.budget_amount_allocated_line_ids:
+            x.crossovered_budget_line_id.unlink()
         self.state = 'cancel'
 
     def function_draft(self):
@@ -953,6 +956,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                 }
             print(vars)
             account_budget_line = self.env['crossovered.budget.lines'].create(vars)
+            x.crossovered_budget_line_id = account_budget_line.id
 
 
     def read_file(self):
@@ -1132,6 +1136,7 @@ class BudgetAmountAllocatedLines(models.Model): #parte del modelo budget.amount.
     expense_type_id = fields.Many2one('budget.expense.type',string="Tipo de gasto")
     geographic_location_id = fields.Many2one('budget.geographic.location',string="Ubicación geográfica")
     key_portfolio_id = fields.Many2one('budget.key.portfolio',string="Clave cartera")
+    crossovered_budget_line_id = fields.Many2one('crossovered.budget.lines', "Linea de presupuesto")
 
 class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
     _name='budget.adjustement'

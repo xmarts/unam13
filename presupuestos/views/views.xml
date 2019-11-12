@@ -701,7 +701,7 @@
           <button name="function_request" states="draft" string="Solicitar" type="object" class="oe_highlight"/>
           <button name="function_approve" states="solicitud" string="Aprobar" type="object" class="oe_highlight"/>
           <button name="function_reject" states="solicitud" string="Rechazar" type="object" class="oe_highlight"/>
-          <button name="function_cancel" states="draft,solicitud" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_cancel" states="draft,solicitud,approve" string="Cancelar" type="object" class="oe_highlight"/>
           <button name="function_draft" states="cancel" string="Borrador" type="object" class="oe_highlight"/>
            <field name="state" widget="statusbar"/>
         </header>     
@@ -760,7 +760,9 @@
                       <field name="conpa_id" optional="show"/>
                       <field name="expense_type_id" optional="show"/>
                       <field name="geographic_location_id" optional="show"/>
-                      <field name="key_portfolio_id" optional="show"/>                      
+                      <field name="key_portfolio_id" optional="show"/>      
+                      <field name="crossovered_budget_line_id" optional="show"/>      
+                                      
                     </tree>                    
                   </field>                                 
                 </sheet>
