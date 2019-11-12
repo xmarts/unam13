@@ -1559,7 +1559,8 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                     'to_period':'t1',
                     'import_recalendarization_id':self.id,
                     'budget_id':self.budget_id.id,
-                    'code': folio
+                    'code': folio,
+                    'amount':amount
                 }
                 print(vars)
                 budget_rescheduling_line = self.env['budget.rescheduling'].create(vars)
