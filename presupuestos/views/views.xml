@@ -1066,10 +1066,10 @@
     <field name="arch" type="xml">
       <form >
         <header>          
-          <button name="function_name" states="draft" string="Importar" type="object" class="oe_highlight"/>
+          <!-- <button name="function_name" states="draft" string="Importar" type="object" class="oe_highlight"/>
           <button name="function_name" states="draft" string="Aprobar" type="object" class="oe_highlight"/>
           <button name="function_name" states="draft" string="Rechazar" type="object" class="oe_highlight"/>
-          <button name="function_name" states="draft" string="Cancelar" type="object" class="oe_highlight"/>
+          <button name="function_name" states="draft" string="Cancelar" type="object" class="oe_highlight"/> -->
           <field name="state" widget="statusbar"/> 
         </header>     
          <sheet>
