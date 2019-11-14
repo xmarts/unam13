@@ -341,15 +341,15 @@ class BudgetProjectType(models.Model):#modelo para el Tipo de proyecto(TP).
     @api.constrains('code')
     def _check_code(self):
         for obj in self: 
-            val = obj.code
-            if val.isdigit()==False:
-                raise ValidationError(_('Valor Invalido.'))
-            else:
-                if val.isdigit():
-                    if len(val)==1:
-                        obj.code = '0'+obj.code
-                else:
-                    raise ValidationError(_('Falta completar los caracteres necesarios del código.'))    
+            # val = obj.code
+            # if val.isdigit()==False:
+            #     raise ValidationError(_('Valor Invalido.'))
+            # else:
+            #     if val.isdigit():
+            #         if len(val)==1:
+            #             obj.code = '0'+obj.code
+            #     else:
+            #         raise ValidationError(_('Falta completar los caracteres necesarios del código.'))    
         rec = self.env['budget.project.type'].search(
         [('code', '=', self.code),('id', '!=', self.id)])
         if rec:
@@ -1649,9 +1649,144 @@ class InheritAccountMoveLine(models.Model):#campos adicionales a este modelo Val
     agreement_number = fields.Many2one('agreement.agreement',string="Número de convenio")
     project_number_id = fields.Many2one('project.project',string="Número de proyecto")
 
+
 class InheritAccountMove(models.Model):
     _inherit  = 'account.move'
     
+
+    def onchange_read_programmatic_code(self):
+        for x in self.invoice_line_ids:
+            if x.programmatic_code:
+                structure = self.env['budget.structure'].search([('code_part_pro','=',True)],)
+                message = " ERRORES: "
+                valid = True
+                for y in structure:
+                    position = x.programmatic_code[y.position_from:y.position_to]
+                    if y.to_search_field:
+                        search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                        if not search_model:
+                            valid = False
+                            message += ' Código invalido en el modelo '+ y.catalog_id.name + '. \n'
+                    
+                if valid == True:
+                    for y in structure:
+                        position = x.programmatic_code[y.position_from:y.position_to]
+                        if y.is_check_digit == True:
+                            x.update({'check_digit_id':position})
+                        if y.catalog_id.model == 'budget.subdependence':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'subdependence_id':search_model.id})
+                        if y.catalog_id.model == 'budget.program':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'program_id':search_model.id})
+                        if y.catalog_id.model == 'budget.subprogram':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'subprogram_id':search_model.id})
+                        if y.catalog_id.model == 'budget.item':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'item_id':search_model.id})
+                        if y.catalog_id.model == 'budget.resource.origin':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'resource_origin_id':search_model.id})
+                        if y.catalog_id.model == 'budget.institutional.activity':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'institutional_activity_id':search_model.id})
+                        if y.catalog_id.model == 'budget.program.conversion':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'conpp_id':search_model.id})
+                        if y.catalog_id.model == 'budget.item.conversion':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'conpa_id':search_model.id})
+                        if y.catalog_id.model == 'budget.expense.type':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'expense_type_id':search_model.id})
+                        if y.catalog_id.model == 'budget.geographic.location':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'geographic_location_id':search_model.id})
+                        if y.catalog_id.model == 'budget.key.portfolio':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'key_portfolio_id':search_model.id})
+                        if y.catalog_id.model == 'budget.project.type':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'type_project_id':search_model.id})
+                        if y.catalog_id.model == 'budget.stage':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'stage':search_model.id})
+                        if y.catalog_id.model == 'budget.agreement.type':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'agreement_type_id':search_model.id})
+                        if y.catalog_id.model == 'agreement.agreement':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'agreement_number':search_model.id})
+                        if y.catalog_id.model == 'project.project':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                x.update({'project_number_id':search_model.id})
+
+                else:
+                    raise ValidationError(_('Codigo Programatico Incorrecto! '+x.programmatic_code+'\n'+message))
+            else:
+                structure = self.env['budget.structure'].search([('code_part_pro','=',True)],order='position_from asc')
+                pc = ''
+                # Año
+                # Programa
+                # SubPrograma
+                # Dependencia
+                # SubDependencia
+                # PartidaGastos
+                # DigitoVerificador
+                # OrigenRecurso
+                # ActividadInstitucional
+                # ConversionProgramaPresupuestario
+                # ConversionConPartida
+                # TipoGasto
+                # UbicacionGeografica
+                # ClaveCartera
+                # TipoProyecto
+                # Proyecto
+                # Etapa
+                # TipoConvenio
+                # Convenio
+                # PresupuestoAutorizado
+                # PresupuestoAsignado
+
+                year = ''
+                subdependence_id = x.subdependence_id.id
+                program_id = x.program_id.id
+                subprogram_id = x.subprogram_id.id
+                item_id = x.item_id.id
+                check_digit_id = x.check_digit_id
+                resource_origin_id = x.resource_origin_id.id
+                institutional_activity_id = x.institutional_activity_id.id
+                conpp_id = x.conpp_id.id
+                conpa_id = x.conpa_id.id
+                expense_type_id = x.expense_type_id.id
+                geographic_location_id = x.geographic_location_id.id
+                key_portfolio_id = x.key_portfolio_id.id
+                type_project_id = x.type_project_id.id
+                stage = x.stage.id
+                agreement_type_id = x.agreement_type_id.id
+                agreement_number = x.agreement_number.id
+                project_number_id = x.project_number_id.id
+                for y in structure:
+                    print(y.name)
+
+
     sub_state = fields.Selection([('so','Solicitud'),('ap','Aprovado'),('app','Aprovado para pago'),('ma','Medio de pago asignado'),('pa','Pagado'),('re','Rechazado'),('ca','Cancelado'),('pna','Pago no aplicado'),('mpc','Medio de pago cancelado'),('rpp','Rechazado por pago')],string="Sub-Estado",required=True,default='so')
 
 

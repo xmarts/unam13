@@ -1209,6 +1209,37 @@
       </xpath>
     </field>
   </record> 
+  <record id="inherit_move_lines_proggramatic_code" model="ir.ui.view">
+    <field name="name">inherit_move_lines_proggramatic_code</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+      <!--el campo code ba antes de nombre-->
+      <xpath expr="//header" position='inside'>
+        <button name="onchange_read_programmatic_code" string="Verificar Codigos" type="object"/>
+      </xpath>
+      <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='price_total']" position="after">
+         <!-- <field name="branch_id"/>-->
+          <field name="check_digit_id" optional="show"/>
+          <field name="subdependence_id" optional="show"/>
+          <field name="program_id" optional="show"/>
+          <field name="subprogram_id" optional="show"/>
+          <field name="item_id" optional="show"/>
+          <field name="resource_origin_id" optional="show"/>
+          <field name="institutional_activity_id" optional="show"/>
+          <field name="conpp_id" optional="show"/>
+          <field name="conpa_id" optional="show"/>
+          <field name="expense_type_id" optional="show"/>
+          <field name="geographic_location_id" optional="show"/>
+          <field name="key_portfolio_id" optional="show"/>
+          <field name="type_project_id" optional="show"/>
+          <field name="stage" optional="show"/>
+          <field name="agreement_type_id" optional="show"/>
+          <field name="agreement_number" optional="show"/>
+          <field name="project_number_id" optional="show"/>
+      </xpath>
+    </field>
+  </record> 
 
 <!--inherit al modleo  crossovered.budget.Captura inicial del presupuesto.-->
   <record id="proyect_inherit_presupuestos_croos" model="ir.ui.view">
