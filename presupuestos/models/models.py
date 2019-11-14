@@ -340,7 +340,7 @@ class BudgetProjectType(models.Model):#modelo para el Tipo de proyecto(TP).
     #funcion para autocomplementar y que solo sean esnteros y la duplicidad 
     @api.constrains('code')
     def _check_code(self):
-        for obj in self: 
+        # for obj in self: 
             # val = obj.code
             # if val.isdigit()==False:
             #     raise ValidationError(_('Valor Invalido.'))
