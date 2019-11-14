@@ -61,6 +61,7 @@ class check(models.Model):
 	def request(self):
 		self.state="2"
 
+
 		#vals = {
 		#'check_bank_id':self.id,
 		#'state':'2'
@@ -73,6 +74,20 @@ class check(models.Model):
 		self.state="5"
 	def confirm(self):
 		self.state="4"
+
+		cheban=self.env['checks.bank.check'].create({
+			'checkbook_id':self.id,
+			'state':'1',
+			'g_state':'1'
+			})
+
+		self.env['checks.bank.check.history'].create({
+			'check_bank_id': cheban.id,
+			'movmente_date': default=datetime.today(),
+			'state':'1'
+			})
+
+
 
 		#if self.checks_test_print==True:
 			#vals = {
@@ -88,6 +103,7 @@ class check(models.Model):
 		'checkbook_id':self.id,
 		'bankcheck_number':self.id,
 		'state':'1',
+
 		}
 		self.env['checks.bank.check'].create(vals)
 		print(state)
