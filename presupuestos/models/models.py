@@ -423,13 +423,13 @@ class BudgetAgreementType(models.Model):#modelo para Tipo de convenio(TC).
     #funcion para autocompletar con un cero ala izquierda y validar que el codigo no se repirta y sea unico.
     @api.constrains('code')
     def _check_code(self):
-        for obj in self: 
-            val = obj.code
-            if val.isdigit():
-                if len(val)<=1:
-                    obj.code = '0'+obj.code
-            else:
-                raise ValidationError(_('Valor Invalido'))
+        # for obj in self: 
+        #     val = obj.code
+        #     if val.isdigit():
+        #         if len(val)<=1:
+        #             obj.code = '0'+obj.code
+        #     else:
+        #         raise ValidationError(_('Valor Invalido'))
         rec = self.env['budget.agreement.type'].search(
         [('code', '=', self.code),('id', '!=', self.id)])
         if rec:
@@ -1766,23 +1766,23 @@ class InheritAccountMove(models.Model):
                 # PresupuestoAsignado
 
                 year = ''
-                subdependence_id = x.subdependence_id.id
-                program_id = x.program_id.id
-                subprogram_id = x.subprogram_id.id
-                item_id = x.item_id.id
-                check_digit_id = x.check_digit_id
-                resource_origin_id = x.resource_origin_id.id
-                institutional_activity_id = x.institutional_activity_id.id
-                conpp_id = x.conpp_id.id
-                conpa_id = x.conpa_id.id
-                expense_type_id = x.expense_type_id.id
-                geographic_location_id = x.geographic_location_id.id
-                key_portfolio_id = x.key_portfolio_id.id
-                type_project_id = x.type_project_id.id
-                stage = x.stage.id
-                agreement_type_id = x.agreement_type_id.id
-                agreement_number = x.agreement_number.id
-                project_number_id = x.project_number_id.id
+                subdependence_id = ''
+                program_id = ''
+                subprogram_id = ''
+                item_id = ''
+                check_digit_id = ''
+                resource_origin_id = ''
+                institutional_activity_id = ''
+                conpp_id = ''
+                conpa_id = ''
+                expense_type_id = ''
+                geographic_location_id = ''
+                key_portfolio_id = ''
+                type_project_id = ''
+                stage = ''
+                agreement_type_id = ''
+                agreement_number = ''
+                project_number_id = ''
                 for y in structure:
                     print(y.name)
 
