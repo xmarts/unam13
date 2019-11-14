@@ -1,0 +1,3 @@
+[submodule "multi_branch"]
+	path = multi_branch
+	url = git@github.com:viernes/multi_branch.git
