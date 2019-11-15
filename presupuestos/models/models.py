@@ -41,7 +41,7 @@ class BudgertSubprogram(models.Model):#se crea este modelo  SubPrograma (SP) con
     code = fields.Char(string="Código", required=True, size=2)
     name = fields.Char(string="Nombre", required=True)
 
-    #branch_id = fields.Many2one('res.branch',string="Dependencia",required=True,)
+    branch_id = fields.Many2one('res.branch',string="Dependencia",required=True,)
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencia",required=True)
     program_id = fields.Many2one('budget.program',string="Programa",required=True)
     
@@ -60,34 +60,35 @@ class BudgertSubprogram(models.Model):#se crea este modelo  SubPrograma (SP) con
         if rec:
             raise ValidationError(_('Valor duplicado, el código debe ser único.'))
 ###   VERIFICAR SI ES NECESARIO O NO CREAR MODELO BUDGET.DEPENDENCE    ###
-#class campos_nuevos_branch(models.Model):#Este es un inherit al modelo del branch ,Dependencia (DEP).
-#    _inherit = 'res.branch'
-#    code = fields.Char(string="Código",required=True,size=3)
-#    head = fields.Many2one('hr.employee',string="Titular",required=True)
-#    secretary = fields.Many2one('hr.employee',string="Secretario Administrativo",required=True)#No_dependence = fields.Char(string="No. entidad o dependencia",required=True)
-#    subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencias")
-#
-#    #funcion para autocompletar con un cero ala izquierda y validar que el codigo no se repirta y sea unico.
-#    @api.constrains('code')#def _check_code(self):
-#        for obj in self: #val = obj.code
-#            if val.isdigit():
-#                if len(val)==1:
-#                    obj.code = '00'+obj.code
-#                if len(val)==2:
-#                    obj.code = '0'+obj.code 
-#            else:
-#                raise ValidationError(_('Valor Invalido'))
-#        rec = self.env['res.branch'].search(
-#        [('code', '=', self.code),('id', '!=', self.id)])
-#        if rec:
+class campos_nuevos_branch(models.Model):#Este es un inherit al modelo del branch ,Dependencia (DEP).
+    _inherit = 'res.branch'
+    code = fields.Char(string="Código",required=True,size=3)
+    head = fields.Many2one('hr.employee',string="Titular",required=True)
+    secretary = fields.Many2one('hr.employee',string="Secretario Administrativo",required=True)#No_dependence = fields.Char(string="No. entidad o dependencia",required=True)
+    subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencias")
 
+    #funcion para autocompletar con un cero ala izquierda y validar que el codigo no se repirta y sea unico.
+    @api.constrains('code')
+    def _check_code(self):
+        for obj in self: 
+            val = obj.code
+            if val.isdigit():
+                if len(val)==1:
+                    obj.code = '00'+obj.code
+                if len(val)==2:
+                    obj.code = '0'+obj.code 
+            else:
+                raise ValidationError(_('Valor Invalido'))
+        rec = self.env['res.branch'].search([('code', '=', self.code),('id', '!=', self.id)])
+        if rec:
+            raise ValidationError(_('Valor duplicado, el código debe ser único por dependencia'))
 class  BudgetSubdependence(models.Model):#Modelo Subdependencia (SD)
     _name = 'budget.subdependence'
     _description = 'Subdepencencia'
 
     code = fields.Char(string="Código",required=True,size=2)
     name = fields.Char(string="Nombre",required=True)
-#    branch_id = fields.Many2one('res.branch',string="Dependencia",required=True,)
+    branch_id = fields.Many2one('res.branch',string="Dependencia",required=True,)
 
     #funcion para autocompletar con un cero ala izquierda y validar que el codigo no se repirta y sea unico.
     @api.constrains('code')
@@ -102,7 +103,7 @@ class  BudgetSubdependence(models.Model):#Modelo Subdependencia (SD)
         rec = self.env['budget.subdependence'].search(
         [('code', '=', self.code),('id', '!=', self.id)])
         if rec:
-            raise ValidationError(_('Valor duplicado, el código debe ser único por dependencia'))
+            raise ValidationError(_('Valor duplicado, el código debe ser único por subdependencia'))
 
 class BudgetItem(models.Model):#Modelo para Partida de Gasto (PAR).
     _name = 'budget.item'
@@ -443,7 +444,7 @@ class AgreementAgreement(models.Model):#modelo para Convenios(NC)
     code = fields.Char(string="Código",required=True,size=6)
     name = fields.Char(string="Nombre",required=True)
     agreement_type_id = fields.Many2one('budget.agreement.type',string="Tipo de convenio",required=True)
-    #branch_id = fields.Many2one('res.branch',string="Dependencia",required=True)
+    branch_id = fields.Many2one('res.branch',string="Dependencia",required=True)
     budget_subdependence_id = fields.Many2one('budget.subdependence',string="Subdepencencia",required=True)
 
     #funcion para autocomplementar y que solo sean esnteros y la duplicidad 
@@ -676,6 +677,7 @@ class InheritCrossoveredBudget(models.Model):# modelo el cual hace un inherit al
                 print(vals)
                 account_budget_post = self.env['account.budget.post'].create(vals)
                 # print(account_budget_post)
+                dependence_id = False
                 subdependence_id = False
                 program_id = False
                 subprogram_id = False
@@ -703,6 +705,10 @@ class InheritCrossoveredBudget(models.Model):# modelo el cual hace un inherit al
                     if y.is_asigned_budget == True:
                         asigned = position
                     if y.catalog_id.model:
+                        if y.catalog_id.model == 'res.branch':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                dependence_id = search_model.id
                         if y.catalog_id.model == 'budget.subdependence':
                             search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
                             if search_model:
@@ -750,6 +756,7 @@ class InheritCrossoveredBudget(models.Model):# modelo el cual hace un inherit al
                 print(asigned,autorized,year)
                 vars = {
                     'programmatic_account':pc,
+                    'branch_id':dependence_id,
                     'subdependence_id':subdependence_id,
                     'program_id':program_id,
                     'subprogram_id':subprogram_id,
@@ -805,7 +812,7 @@ class InheritCrossoveredBudgetLine(models.Model):# modelo en el cual se hace un 
     amount_modified = fields.Float(string="Modificado",digits=(12,2))
     amount_available2 = fields.Float(string="Disponible",digits=(12,2))
     programmatic_account = fields.Text(string="Código programático")#El valor debe estar separado por (.) por cada segmento del código programático
-    # branch_id = fields.Many2one('branch',string="Dependencia")
+    branch_id = fields.Many2one('res.branch',string="Dependencia")
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencia")
     program_id = fields.Many2one('budget.program',string="Programa")
     subprogram_id = fields.Many2one('budget.subprogram',string="Subprograma")
@@ -935,6 +942,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
             account_budget_post = self.env['account.budget.post'].create(vals)
             vars = {
                     'programmatic_account':x.programmatic_code,
+                    'branch_id':x.branch_id.id,
                     'subdependence_id':x.subdependence_id.id,
                     'program_id':x.program_id.id,
                     'subprogram_id':x.subprogram_id.id,
@@ -1018,6 +1026,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                     programmatic_code = ''
                     amount = ''
                     date = datetime.now()
+                    dependence_id = ''
                     subdependence_id = ''
                     program_id = ''
                     subprogram_id = ''
@@ -1035,6 +1044,10 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                         if y.is_authorized_budget == True:
                             amount = position
                         if y.catalog_id.model:
+                            if y.catalog_id.model == 'res.branch':
+                                search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                                if search_model:
+                                    dependence_id = search_model.id
                             if y.catalog_id.model == 'budget.subdependence':
                                 search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
                                 if search_model:
@@ -1084,6 +1097,7 @@ class BudgetAmountAllocated(models.Model):# modelo para Control de montos asigna
                         'programmatic_code':programmatic_code,
                         'amount':amount,
                         'date':date,
+                        'branch_id':dependence_id,
                         'subdependence_id':subdependence_id,
                         'program_id':program_id,
                         'subprogram_id':subprogram_id,
@@ -1124,7 +1138,7 @@ class BudgetAmountAllocatedLines(models.Model): #parte del modelo budget.amount.
     programmatic_code = fields.Char(string="Código programático",required=True)
     amount = fields.Float(string="Monto",required=True)
     date  = fields.Date(string="Fecha",required=True)
-    #branch_id = fields.Many2one('res.branch',string="Dependencia")
+    branch_id = fields.Many2one('res.branch',string="Dependencia")
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencia")
     program_id = fields.Many2one('budget.program',string="Programa")
     subprogram_id = fields.Many2one('budget.subprogram',string="Subprograma")
@@ -1270,6 +1284,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
             for x in file:
                 programmatic_code = ''
                 amount = ''
+                dependence_id = ''
                 subdependence_id = ''
                 program_id = ''
                 subprogram_id = ''
@@ -1287,6 +1302,11 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
                     programmatic_code += str(position + '.')
                     if y.is_amount == True:
                             amount = position
+                    if y.catalog_id.model:
+                        if y.catalog_id.model == 'res.branch':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                dependence_id = search_model.id
                     if y.catalog_id.model:
                         if y.catalog_id.model == 'budget.subdependence':
                             search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
@@ -1342,6 +1362,7 @@ class BudgetAdjustement(models.Model):#modelo para las Adecuaciones 6.1
                     'adjustement_id':self.id,
                     'programmatic_code':programmatic_code,
                     'amount':amount,
+                    'branch_id':dependence_id,
                     'subdependence_id':subdependence_id,
                     'program_id':program_id,
                     'subprogram_id':subprogram_id,
@@ -1366,7 +1387,7 @@ class BudgetAdjustementLines(models.Model):#modelo el cual se muestra en una pes
     programmatic_code = fields.Text(string="Código programático",required=True)
     type = fields.Selection([('a','Aumento'),('d','Disminución')],string="Tipo",required=True, default='a')
     amount = fields.Float(string="Importe",required=True)
-    #branch_id = fields.Many2one('res.branch',string="Dependencia",required=True)
+    branch_id = fields.Many2one('res.branch',string="Dependencia",required=True)
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdepencencia",required=True)
     program_id = fields.Many2one('budget.program',string="Programa",required=True)
     subprogram_id = fields.Many2one('budget.subprogram',string="Subprograma",required=True)
@@ -1483,6 +1504,7 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
             account_budget_post = False
             for x in file:
                 programmatic_code = ''
+                dependence_id = ''
                 subdependence_id = ''
                 program_id = ''
                 subprogram_id = ''
@@ -1506,6 +1528,10 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                     if y.is_date_doc == True:
                         fecha = date(int('20'+position[4:6]),int(position[2:4]),int(position[0:2]))
                     if y.catalog_id.model:
+                        if y.catalog_id.model == 'res.branch':
+                            search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
+                            if search_model:
+                                dependence_id = search_model.id
                         if y.catalog_id.model == 'budget.subdependence':
                             search_model = self.env[str(y.catalog_id.model)].search([(y.to_search_field.name,'=',str(position))])
                             if search_model:
@@ -1552,6 +1578,7 @@ class BudgetImportRecalendarization(models.Model):#modelo para Recalendarizacion
                                 key_portfolio_id = search_model.id
                 vars = {
                     'programmatic_code':programmatic_code,
+                    'branch_id':dependence_id,
                     'subdependence_id':subdependence_id,
                     'program_id':program_id,
                     'subprogram_id':subprogram_id,
@@ -1586,7 +1613,7 @@ class BudgetRescheduling(models.Model):# modelo para Control de recalendarizacio
     state = fields.Selection([('draft','Borrador'),('import','Importado'),('reject','Rechazado'),('cancel','Cancelado')],default="draft", related="import_recalendarization_id.state")
     reason_for_rejection = fields.Char(string="Motivo del rechazo")
     import_recalendarization_id = fields.Many2one('budget.import.recalendarization',string="Recalendarización",required=True)
-    #branch_id =fields.Many2one('res.branch',string="Dependencia",required=True)
+    branch_id =fields.Many2one('res.branch',string="Dependencia",required=True)
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdependencia",required=True)
     program_id = fields.Many2one('budget.program',string="Programa",required=True)
     subprogram_id = fields.Many2one('budget.subprogram',string="Subprograma",required=True)
@@ -1630,7 +1657,7 @@ class InheritAccountMoveLine(models.Model):#campos adicionales a este modelo Val
     _inherit = 'account.move.line'
 
     programmatic_code = fields.Char(string="Código programático",required=False)
-    #branch_id = fields.Many2one('res.branch',string="Dependencia")
+    branch_id = fields.Many2one('res.branch',string="Dependencia")
     subdependence_id = fields.Many2one('budget.subdependence',string="Subdepencencia")
     program_id = fields.Many2one('budget.program',string="Programa")
     subprogram_id = fields.Many2one('budget.subprogram',string="SubPrograma")

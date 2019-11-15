@@ -57,7 +57,7 @@
               <group>                  
                 <field name="code"/>                  
                 <field name="name"/>
-                <!--<field name="branch_id"/>-->
+                <field name="branch_id"/>
               </group>
               <group>  
                 <field name="subdependence_id"/> 
@@ -76,7 +76,7 @@
           <tree >              
             <field name="code"/>
             <field name="name"/>
-            <!--<field name="branch_id"/>-->            
+            <field name="branch_id"/>            
             <field name="subdependence_id"/> 
             <field name="program_id"/>    
           </tree>
@@ -107,7 +107,7 @@
                 <field name="name"/>
               </group>
               <group>                
-               <!-- <field name="branch_id"/>  -->              
+               <field name="branch_id"/>               
               </group>
             </group>
          </sheet> 
@@ -122,7 +122,7 @@
           <tree >      
             <field name="code"/>                  
             <field name="name"/>
-            <!--<field name="branch_id"/>  -->               
+            <field name="branch_id"/>                 
           </tree>
       </field>
     </record> 
@@ -621,7 +621,7 @@
                 <field name="agreement_type_id"/>
               </group>
               <group>
-                <!--<field name="branch_id"/>-->
+                <field name="branch_id"/>
                 <field name="budget_subdependence_id"/>
               </group>
             </group>
@@ -638,7 +638,7 @@
           <field name="code"/>
           <field name="name"/>
           <field name="agreement_type_id"/>
-          <!--<field name="branch_id"/>-->
+          <field name="branch_id"/>
           <field name="budget_subdependence_id"/>                
         </tree>
     </field>
@@ -822,7 +822,7 @@
                 <field name="amount"/> 
                 <field name="date"/>                 
                 <field name="allocated_deposit_id"/>
-                <!--<field name="branch_id"/> -->
+                <field name="branch_id"/> 
                 <field name="subdependence_id"/> 
                 <field name="program_id"/> 
                 <field name="subprogram_id"/>
@@ -854,7 +854,7 @@
           <field name="amount"/> 
           <field name="date"/>                 
           <field name="allocated_deposit_id"/>
-          <!--<field name="branch_id"/> -->
+          <field name="branch_id"/> 
           <field name="subdependence_id"/> 
           <field name="program_id"/> 
           <field name="subprogram_id"/>                
@@ -910,7 +910,7 @@
                       <field name="adjustement_id"/>
                       <field name="type"/>
                       <field name="amount"/>
-                     <!-- <field name="branch_id"/>-->
+                      <field name="branch_id"/>
                       <field name="subdependence_id" optional="show"/>
                       <field name="program_id" optional="show"/>
                       <field name="subprogram_id" optional="show"/>
@@ -1082,7 +1082,7 @@
                 <field name="budget_id"/>
                 <field name="to_period"/>
                 <field name="import_recalendarization_id"/>
-               <!-- <field name="branch_id"/>-->
+                <field name="branch_id"/>
                 <field name="subdependence_id"/>
                 <field name="program_id"/>
                 <field name="subprogram_id"/>
@@ -1114,7 +1114,7 @@
         <tree >
           <field name="code"/>
           <field name="to_period"/>
-          <!--<field name="branch_id"/>-->
+          <field name="branch_id"/>
           <field name="subdependence_id"/>
           <field name="date"/> 
           <field name="expense_type_id"/>
@@ -1130,26 +1130,23 @@
     view_mode="tree,form"
     />
 
-  <!--inherit al modelo de branch aqui empieza
+  <!-- inherit al modelo de branch aqui empieza -->
   <record id="Dependencia_inherit_branch" model="ir.ui.view">
     <field name="name">Dependencia.inherit.branch</field>
     <field name="model">res.branch</field>
     <field name="inherit_id" ref="branch.branch_res_branch_view_form"/>
     <field name="arch" type="xml">
-      <!el campo code ba antes de nombre
       <xpath expr="//field[@name='name']" position="before">
         <field name="code"/>
       </xpath>
 
-      <los demas campos van despues de   
       <xpath expr="//field[@name='address']" position="after">
         <field name="head"/>
         <field name="secretary"/>
-        <field name="No_dependence"/>
         <field name="subdependence_id"/>
       </xpath>
     </field>
-  </record> -->
+  </record> 
 
   <!--inherit al modleo de project Proyectos (NP).--> 
   <record id="proyect_inherit_project" model="ir.ui.view">
@@ -1187,7 +1184,7 @@
         <page string="Cambios">
           <group>
             <group>
-             <!-- <field name="branch_id"/>-->
+              <field name="branch_id"/>
               <field name="subdependence_id"/>
               <field name="program_id"/>
               <field name="subprogram_id"/>
@@ -1219,7 +1216,7 @@
         <button name="onchange_read_programmatic_code" string="Verificar Codigos" type="object"/>
       </xpath>
       <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='price_total']" position="after">
-         <!-- <field name="branch_id"/>-->
+          <field name="branch_id"/>
           <field name="check_digit_id" optional="show"/>
           <field name="subdependence_id" optional="show"/>
           <field name="program_id" optional="show"/>
@@ -1326,10 +1323,10 @@
         <field name="amount_modified"/>
         <field name="amount_available2"/>
         <field name="programmatic_account"/>
-        <!--<field name="branch_id"/>-->
       </xpath>
       
        <xpath expr="//field[@name='crossovered_budget_line']//form//field[@name='paid_date']" position="after">
+        <field name="branch_id"/>
         <field name="subdependence_id"/>
         <field name="program_id"/>
         <field name="subprogram_id"/>
@@ -1368,7 +1365,7 @@
               
             <group >              
             <field name="programmatic_code" optional="show"/>
-            <!-- <field name="branch_id"/> -->
+            <field name="branch_id"/>
             <field name="subdependence_id" optional="show"/>
             <field name="program_id" optional="show"/>
             <field name="subprogram_id" optional="show"/>
